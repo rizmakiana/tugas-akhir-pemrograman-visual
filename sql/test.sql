@@ -30,3 +30,7 @@ create DATABASE final_project_visual_programming;
 SELECT * from reg_provinces;
 SELECT * from reg_regencies;
 SELECT * from reg_districts;
+
+SELECT provinces_id 
+FROM reg_regencies 
+WHERE provinces_id NOT IN (SELECT id FROM reg_provinces);

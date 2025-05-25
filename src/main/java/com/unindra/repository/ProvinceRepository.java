@@ -7,5 +7,7 @@ import com.unindra.entity.Province;
 
 @Repository
 public interface ProvinceRepository extends JpaRepository<Province, String> {
+
+    <List>Province findByName(String name);
     
 }

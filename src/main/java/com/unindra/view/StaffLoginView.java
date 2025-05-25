@@ -4,7 +4,12 @@
  */
 package com.unindra.view;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.stereotype.Component;
+
+import com.unindra.model.LoginRequest;
+import com.unindra.service.AuthService;
 
 /**
  *
@@ -13,10 +18,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class StaffLoginView extends javax.swing.JFrame {
 
+    private final RegisterStaffView registerStaffView;
+
+    private final AuthService authService;
     /**
      * Creates new form LoginStudentView
      */
-    public StaffLoginView() {
+    public StaffLoginView(RegisterStaffView registerStaffView, AuthService authService) {
+        this.registerStaffView = registerStaffView;
+        this.authService = authService;
         initComponents();
     }
 
@@ -34,6 +44,7 @@ public class StaffLoginView extends javax.swing.JFrame {
         bg = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
+        registerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -53,7 +64,20 @@ public class StaffLoginView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1192, 10, 70, 30));
+
+        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginButtonMouseClicked(evt);
+            }
+        });
         getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 270, 40));
+
+        registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registerButtonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 670, 270, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -63,12 +87,36 @@ public class StaffLoginView extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backButtonMouseClicked
 
+    private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
+        // TODO add your handling code here:
+        registerStaffView.setVisible(true);
+    }//GEN-LAST:event_registerButtonMouseClicked
+
+    private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
+        // TODO add your handling code here:
+
+        String username = usernameForm.getText();
+        String password = passwordForm.getText();
+
+        LoginRequest request = new LoginRequest(username, password);
+
+        String errorMessage = authService.loginStaff(request);
+
+        if (errorMessage != null) {
+            JOptionPane.showMessageDialog(this, errorMessage, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Berhasil login");
+            // ke dashboard staff
+        }
+    }//GEN-LAST:event_loginButtonMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel bg;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordForm;
+    private javax.swing.JButton registerButton;
     private javax.swing.JTextField usernameForm;
     // End of variables declaration//GEN-END:variables
 }

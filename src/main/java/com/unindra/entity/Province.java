@@ -25,15 +25,5 @@ public class Province {
     @OneToMany(mappedBy = "province")
     private List<Regency> regencies;
 
-    // @Id
-    // @Column(length = 2)
-    // private String id;
-
-    // @Column(nullable = false)
-    // private String name;
-
-    // // Relasi One-to-Many ke Regency
-    // @OneToMany(mappedBy = "province", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private List<Regency> regencies;
     
 }

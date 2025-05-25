@@ -48,5 +48,10 @@ public class ProvinceService {
                   .map(Province::getName)  // asumsi Province ada method getName()
                   .toArray(String[]::new);
     }
+
+    public Province findByName(String provinceName) {
+        return provinceRepository.findByName(provinceName);
+    }
+
     
 }

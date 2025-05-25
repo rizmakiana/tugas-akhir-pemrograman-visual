@@ -4,6 +4,7 @@
  */
 package com.unindra.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,12 +15,19 @@ import org.springframework.stereotype.Component;
 public class SelectRoleView extends javax.swing.JFrame {
     
     private final TeacherLoginView teacherLoginView;
+    
+    private final StudentLoginView studentLoginView;
+    
+    private final StaffLoginView staffLoginView;
 
     /**
      * Creates new form SelectRoleView
      */
-    public SelectRoleView(TeacherLoginView teacherLoginView) {
+    @Autowired
+    public SelectRoleView(TeacherLoginView teacherLoginView, StudentLoginView studentLoginView, StaffLoginView staffLoginView) {
         this.teacherLoginView = teacherLoginView;
+        this.studentLoginView = studentLoginView;
+        this.staffLoginView = staffLoginView;
         initComponents();
     }
 
@@ -72,8 +80,7 @@ public class SelectRoleView extends javax.swing.JFrame {
 
     private void studentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentButtonMouseClicked
         // TODO add your handling code here:
-        StudentLoginView view = new StudentLoginView();
-        view.setVisible(true);
+        openStudentLogin();
     }//GEN-LAST:event_studentButtonMouseClicked
 
     private void teacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherButtonMouseClicked
@@ -83,14 +90,20 @@ public class SelectRoleView extends javax.swing.JFrame {
 
     private void staffButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_staffButtonMouseClicked
         // TODO add your handling code here:
-        StaffLoginView view = new StaffLoginView();
-        view.setVisible(true);
+        openStaffLogin();
     }//GEN-LAST:event_staffButtonMouseClicked
 
     private void openTeacherLogin(){
         teacherLoginView.setVisible(true);
     }
     
+    private void openStudentLogin(){
+        studentLoginView.setVisible(true);
+    }
+    
+    private void openStaffLogin(){
+        staffLoginView.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;

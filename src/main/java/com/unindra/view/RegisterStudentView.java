@@ -4,9 +4,18 @@
  */
 package com.unindra.view;
 
+import com.unindra.model.RegisterRequest;
+import com.unindra.service.RegionService;
+import com.unindra.service.StudentService;
+
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,14 +23,22 @@ import org.springframework.stereotype.Component;
  * @author rizmakiana
  */
 @Component
+@Slf4j
 public class RegisterStudentView extends javax.swing.JFrame {
+
+    private final RegionService regionService;
+
+    private final StudentService studentService;
 
     /**
      * Creates new form RegisterView
      * 
      * @param role
      */
-    public RegisterStudentView() {
+    @Autowired
+    public RegisterStudentView(RegionService regionService, StudentService studentService) {
+        this.regionService = regionService;
+        this.studentService = studentService;
         initComponents();
     }
 
@@ -33,21 +50,22 @@ public class RegisterStudentView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         fullnameForm = new javax.swing.JTextField();
         usernameForm = new javax.swing.JTextField();
         phoneNumberForm = new javax.swing.JTextField();
         emailForm = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
-        confirmPassword = new javax.swing.JPasswordField();
+        confirmPasswordForm = new javax.swing.JPasswordField();
+        passwordForm = new javax.swing.JPasswordField();
         dateForm = new javax.swing.JComboBox<>();
-        yearForm = new javax.swing.JComboBox<>();
+        provinceForm = new javax.swing.JComboBox<>();
         monthForm = new javax.swing.JComboBox<>();
-        dateForm1 = new javax.swing.JComboBox<>();
-        dateForm2 = new javax.swing.JComboBox<>();
-        dateForm3 = new javax.swing.JComboBox<>();
+        yearForm = new javax.swing.JComboBox<>();
+        cityForm = new javax.swing.JComboBox<>();
+        districtForm = new javax.swing.JComboBox<>();
         bg = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         registerButton = new javax.swing.JButton();
@@ -71,43 +89,54 @@ public class RegisterStudentView extends javax.swing.JFrame {
         emailForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(emailForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 370, 210, 30));
 
-        password.setBackground(new java.awt.Color(216, 216, 216));
-        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 250, 210, 30));
+        confirmPasswordForm.setBackground(new java.awt.Color(216, 216, 216));
+        confirmPasswordForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(confirmPasswordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 250, 210, 30));
 
-        confirmPassword.setBackground(new java.awt.Color(216, 216, 216));
-        confirmPassword.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(confirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 220, 30));
+        passwordForm.setBackground(new java.awt.Color(216, 216, 216));
+        passwordForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(passwordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 220, 30));
 
         dateForm.setBackground(new java.awt.Color(216, 216, 216));
-        dateForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        dateForm.setModel(new javax.swing.DefaultComboBoxModel<>(getDates()));
         dateForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(dateForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 460, 20));
+        getContentPane().add(dateForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 140, 30));
+
+        provinceForm.setBackground(new java.awt.Color(216, 216, 216));
+        provinceForm.setModel(new javax.swing.DefaultComboBoxModel<>(getProvinces()));
+        provinceForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        provinceForm.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                provinceFormItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(provinceForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 460, 20));
+
+        monthForm.setBackground(new java.awt.Color(216, 216, 216));
+        monthForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March",
+                "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        monthForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(monthForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 310, 130, 30));
 
         yearForm.setBackground(new java.awt.Color(216, 216, 216));
         yearForm.setModel(new javax.swing.DefaultComboBoxModel<>(getYears()));
         yearForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(yearForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 310, 130, 30));
 
-        monthForm.setBackground(new java.awt.Color(216, 216, 216));
-        monthForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        monthForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(monthForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 310, 130, 30));
+        cityForm.setBackground(new java.awt.Color(216, 216, 216));
+        cityForm.setModel(new javax.swing.DefaultComboBoxModel<>(getRegencies()));
+        cityForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cityForm.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cityFormItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(cityForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 210, 30));
 
-        dateForm1.setBackground(new java.awt.Color(216, 216, 216));
-        dateForm1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        dateForm1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(dateForm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 210, 30));
-
-        dateForm2.setBackground(new java.awt.Color(216, 216, 216));
-        dateForm2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        dateForm2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(dateForm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 480, 210, 30));
-
-        dateForm3.setBackground(new java.awt.Color(216, 216, 216));
-        dateForm3.setModel(new javax.swing.DefaultComboBoxModel<>(getDates()));
-        dateForm3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(dateForm3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 140, 30));
+        districtForm.setBackground(new java.awt.Color(216, 216, 216));
+        districtForm.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts()));
+        districtForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(districtForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 480, 210, 30));
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Register View.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
@@ -129,13 +158,56 @@ public class RegisterStudentView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
+    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_backButtonMouseClicked
+        this.setVisible(false);
+    }// GEN-LAST:event_backButtonMouseClicked
+
+    private void provinceFormItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_provinceFormItemStateChanged
+        // TODO add your handling code here:
+        getRegencies();
+        cityForm.setModel(new javax.swing.DefaultComboBoxModel<>(getRegencies()));
+        getDistricts();
+        districtForm.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts()));
+    }// GEN-LAST:event_provinceFormItemStateChanged
+
+    private void cityFormItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_cityFormItemStateChanged
+        // TODO add your handling code here:
+
+        getDistricts();
+        districtForm.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts()));
+
+    }// GEN-LAST:event_cityFormItemStateChanged
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_registerButtonMouseClicked
         // TODO add your handling code here:
+
+        String name = fullnameForm.getText();
+        String username = usernameForm.getText();
+        String password = passwordForm.getText();
+        String confirmPassword = confirmPasswordForm.getText();
+        String date = dateForm.getSelectedItem().toString();
+        Integer month = monthForm.getSelectedIndex();
+        String year = yearForm.getSelectedItem().toString();
+        String email = emailForm.getText();
+        String phoneNumber = phoneNumberForm.getText();
+        String province = provinceForm.getSelectedItem().toString();
+        String city = cityForm.getSelectedItem().toString();
+        String district = districtForm.getSelectedItem().toString();
+
+        RegisterRequest request = new RegisterRequest(name, username, password, confirmPassword, date, month, year, email, phoneNumber, province, city, district);
+
+        try {
+            String result = studentService.add(request);
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
     }// GEN-LAST:event_registerButtonMouseClicked
 
@@ -143,7 +215,7 @@ public class RegisterStudentView extends javax.swing.JFrame {
 
         int currentYear = Year.now().getValue();
         int startYear = currentYear - 17; // 50 tahun yang lalu
-        int endYear = currentYear - 6;   // 18 tahun yang lalu
+        int endYear = currentYear - 6; // 18 tahun yang lalu
 
         List<String> years = new ArrayList<>();
         for (int year = startYear; year <= endYear; year++) {
@@ -152,30 +224,59 @@ public class RegisterStudentView extends javax.swing.JFrame {
 
         return years.toArray(String[]::new);
     }
-    
-    public String[] getDates(){
+
+    public String[] getDates() {
         List<String> dates = new ArrayList<>();
-        
+
         for (int i = 1; i <= 31; i++) {
             dates.add(String.valueOf(i));
         }
-        
+
         return dates.toArray(new String[0]);
+    }
+
+    public String[] getProvinces() {
+        return regionService.getAllProvinces();
+    }
+
+    public String[] getRegencies() {
+        Object selectedProvince = provinceForm.getSelectedItem();
+
+        if (selectedProvince == null) {
+            return new String[] {};
+        }
+
+        String provinceName = selectedProvince.toString();
+        log.info("provinceName = {}", provinceName);
+
+        return regionService.getRegenciesByName(provinceName);
+    }
+
+    public String[] getDistricts() {
+        Object selectedRegency = cityForm.getSelectedItem();
+
+        if (selectedRegency == null) {
+            return new String[] {};
+        }
+
+        String regencyName = selectedRegency.toString();
+        log.info("VIEW : {}", regencyName);
+        return regionService.getDistrictsByName(regencyName);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel bg;
-    private javax.swing.JPasswordField confirmPassword;
+    private javax.swing.JComboBox<String> cityForm;
+    private javax.swing.JPasswordField confirmPasswordForm;
     private javax.swing.JComboBox<String> dateForm;
-    private javax.swing.JComboBox<String> dateForm1;
-    private javax.swing.JComboBox<String> dateForm2;
-    private javax.swing.JComboBox<String> dateForm3;
+    private javax.swing.JComboBox<String> districtForm;
     private javax.swing.JTextField emailForm;
     private javax.swing.JTextField fullnameForm;
     private javax.swing.JComboBox<String> monthForm;
-    private javax.swing.JPasswordField password;
+    private javax.swing.JPasswordField passwordForm;
     private javax.swing.JTextField phoneNumberForm;
+    private javax.swing.JComboBox<String> provinceForm;
     private javax.swing.JButton registerButton;
     private javax.swing.JTextField usernameForm;
     private javax.swing.JComboBox<String> yearForm;

@@ -28,7 +28,7 @@ public class Regency {
     private List<District> districts;
 
     @ManyToOne
-    @JoinColumn(name = "provinces_id")
+    @JoinColumn(name = "province_id")
     private Province province;
 
     // @Id

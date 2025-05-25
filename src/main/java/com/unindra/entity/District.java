@@ -25,14 +25,4 @@ public class District {
     @JoinColumn(name = "regency_id")
     private Regency regency;
 
-    // @Id
-    // @Column(length = 6)
-    // private String id;
-
-    // @ManyToOne
-    // @JoinColumn(name = "regency_id", referencedColumnName = "id", nullable = false)
-    // private Regency regency;
-
-    // @Column(nullable = false)
-    // private String name;
 }
