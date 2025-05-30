@@ -4,6 +4,9 @@
  */
 package com.unindra.view;
 
+import com.unindra.view.teacher.TeacherLoginView;
+import com.unindra.view.student.StudentLoginView;
+import com.unindra.view.staff.StaffLoginView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

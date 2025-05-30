@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.unindra.view;
+package com.unindra.view.student;
 
 import com.unindra.model.RegisterRequest;
 import com.unindra.service.RegionService;
-import com.unindra.service.StudentService;
+import com.unindra.service.UserService;
 
 import java.time.Year;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class RegisterStudentView extends javax.swing.JFrame {
 
     private final RegionService regionService;
 
-    private final StudentService studentService;
+    private final UserService userService;
 
     /**
      * Creates new form RegisterView
@@ -36,9 +36,9 @@ public class RegisterStudentView extends javax.swing.JFrame {
      * @param role
      */
     @Autowired
-    public RegisterStudentView(RegionService regionService, StudentService studentService) {
+    public RegisterStudentView(RegionService regionService, UserService userService) {
         this.regionService = regionService;
-        this.studentService = studentService;
+        this.userService = userService;
         initComponents();
     }
 
@@ -51,7 +51,7 @@ public class RegisterStudentView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         fullnameForm = new javax.swing.JTextField();
@@ -113,8 +113,7 @@ public class RegisterStudentView extends javax.swing.JFrame {
         getContentPane().add(provinceForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 460, 20));
 
         monthForm.setBackground(new java.awt.Color(216, 216, 216));
-        monthForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March",
-                "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        monthForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
         monthForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(monthForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 310, 130, 30));
 
@@ -198,7 +197,7 @@ public class RegisterStudentView extends javax.swing.JFrame {
         RegisterRequest request = new RegisterRequest(name, username, password, confirmPassword, date, month, year, email, phoneNumber, province, city, district);
 
         try {
-            String result = studentService.add(request);
+            String result = userService.addStudent(request);
             if (result != null) {
                 JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
             } else {

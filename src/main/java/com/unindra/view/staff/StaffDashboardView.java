@@ -2,19 +2,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.unindra.view;
+package com.unindra.view.staff;
+
+import com.unindra.entity.Student;
+import com.unindra.entity.Teacher;
+import com.unindra.service.StudentService;
+
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author rizmakiana
  */
+@Slf4j
+@Component
 public class StaffDashboardView extends javax.swing.JFrame {
+    
+    @Autowired
+    private final StudentService studentService;
+            
 
     /**
      * Creates new form StaffDashboardView
      */
-    public StaffDashboardView() {
+    public StaffDashboardView(StudentService studentService) {
+        this.studentService = studentService;
         initComponents();
+        loadDataStudent();
     }
 
     /**
@@ -26,7 +46,33 @@ public class StaffDashboardView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        addForm = new javax.swing.JInternalFrame();
+        bgAddForm = new javax.swing.JLabel();
+        nameUser = new javax.swing.JTextField();
+        emailUser = new javax.swing.JTextField();
         mainPanel = new javax.swing.JPanel();
+        panelStudent = new javax.swing.JPanel();
+        searchFormStudent = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableStudent = new javax.swing.JTable();
+        bgStudentPanel = new javax.swing.JLabel();
+        addStudent = new javax.swing.JButton();
+        panelTeacher = new javax.swing.JPanel();
+        searchFormTeacher = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableTeacher = new javax.swing.JTable();
+        bgTeacherPanel = new javax.swing.JLabel();
+        panelClass = new javax.swing.JPanel();
+        searchFormClass = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        bgClassPanel = new javax.swing.JLabel();
+        panelCost = new javax.swing.JPanel();
+        searchFormCost = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        bgStudentPanel3 = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         studentButton = new javax.swing.JButton();
         teacherButton = new javax.swing.JButton();
@@ -37,63 +83,341 @@ public class StaffDashboardView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        addForm.setVisible(true);
+        addForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bgAddForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-form.png"))); // NOI18N
+        addForm.getContentPane().add(bgAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 510));
+
+        jDesktopPane1.add(addForm);
+        addForm.setBounds(0, 0, 572, 546);
+
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 120, 70));
+
+        nameUser.setBackground(new java.awt.Color(250, 250, 250));
+        nameUser.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(nameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 583, 170, 30));
+
+        emailUser.setBackground(new java.awt.Color(250, 250, 250));
+        emailUser.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(emailUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 170, -1));
+
         mainPanel.setBackground(new java.awt.Color(255, 255, 254));
-        mainPanel.setLayout(new java.awt.CardLayout());
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelStudent.setBackground(new java.awt.Color(255, 255, 254));
+        panelStudent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchFormStudent.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        searchFormStudent.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFormStudentKeyReleased(evt);
+            }
+        });
+        panelStudent.add(searchFormStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 190, 20));
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        tableStudent.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nama", "E-mail", "Tanggal Lahir", "Tempat lahir", "Kelas", "No. Telpon", "Aksi"
+            }
+        ));
+        jScrollPane1.setViewportView(tableStudent);
+
+        panelStudent.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 960, 530));
+
+        bgStudentPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data siswa.png"))); // NOI18N
+        panelStudent.add(bgStudentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        addStudent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addStudentMouseClicked(evt);
+            }
+        });
+        panelStudent.add(addStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 70, 140, 20));
+
+        mainPanel.add(panelStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        panelTeacher.setBackground(new java.awt.Color(255, 255, 254));
+        panelTeacher.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchFormTeacher.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        panelTeacher.add(searchFormTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 73, 190, 20));
+
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        tableTeacher.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nama", "E-maill", "Tanggal Lahir", "Tempat lahir", "Kelas", "No. Telpon", "Aksi"
+            }
+        ));
+        tableTeacher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableTeacherMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableTeacher);
+
+        panelTeacher.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 960, 530));
+
+        bgTeacherPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 18)); // NOI18N
+        bgTeacherPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data guru.png"))); // NOI18N
+        panelTeacher.add(bgTeacherPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        mainPanel.add(panelTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        panelClass.setBackground(new java.awt.Color(255, 255, 254));
+        panelClass.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchFormClass.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        panelClass.add(searchFormClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 73, 190, 20));
+
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nama", "E-maill", "Tanggal Lahir", "Tempat lahir", "Kelas", "No. Telpon", "Aksi"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        panelClass.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 960, 530));
+
+        bgClassPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 18)); // NOI18N
+        bgClassPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data kelas.png"))); // NOI18N
+        panelClass.add(bgClassPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        mainPanel.add(panelClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        panelCost.setBackground(new java.awt.Color(255, 255, 254));
+        panelCost.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchFormCost.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        panelCost.add(searchFormCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 73, 190, 20));
+
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nama", "E-maill", "Tanggal Lahir", "Tempat lahir", "Kelas", "No. Telpon", "Aksi"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
+        panelCost.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 960, 530));
+
+        bgStudentPanel3.setFont(new java.awt.Font("Adwaita Mono", 0, 18)); // NOI18N
+        bgStudentPanel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data siswa.png"))); // NOI18N
+        panelCost.add(bgStudentPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
+        mainPanel.add(panelCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 670));
+
         getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 1020, 670));
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Menu admin view.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
+
+        studentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentButtonMouseClicked(evt);
+            }
+        });
         getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 170, 50));
+
+        teacherButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                teacherButtonMouseClicked(evt);
+            }
+        });
         getContentPane().add(teacherButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 170, 50));
+
+        classButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                classButtonMouseClicked(evt);
+            }
+        });
         getContentPane().add(classButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 170, 50));
+
+        costButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                costButtonMouseClicked(evt);
+            }
+        });
         getContentPane().add(costButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 170, 50));
+
+        logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutButtonMouseClicked(evt);
+            }
+        });
         getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 660, 190, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void logoutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_logoutButtonMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StaffDashboardView().setVisible(true);
-            }
-        });
+    private void costButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_costButtonMouseClicked
+        // TODO add your handling code here:
+        panelStudent.setVisible(false);
+        panelTeacher.setVisible(false);
+        panelClass.setVisible(false);
+        panelCost.setVisible(true);
+    }//GEN-LAST:event_costButtonMouseClicked
+
+    private void teacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherButtonMouseClicked
+        // TODO add your handling code here:
+        panelStudent.setVisible(false);
+        panelTeacher.setVisible(true);
+        panelClass.setVisible(false);
+        panelCost.setVisible(false);
+    }//GEN-LAST:event_teacherButtonMouseClicked
+
+    private void classButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_classButtonMouseClicked
+        // TODO add your handling code here:
+        panelStudent.setVisible(false);
+        panelTeacher.setVisible(false);
+        panelClass.setVisible(true);
+        panelCost.setVisible(false);
+    }//GEN-LAST:event_classButtonMouseClicked
+
+    private void studentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentButtonMouseClicked
+        // TODO add your handling code here:
+        panelStudent.setVisible(true);
+        panelTeacher.setVisible(false);
+        panelClass.setVisible(false);
+        panelCost.setVisible(false);
+
+        loadDataStudent();
+    }//GEN-LAST:event_studentButtonMouseClicked
+
+    private void addStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentMouseClicked
+        // TODO add your handling code here:
+        addForm.setVisible(true); // Pastikan frame-nya sudah dibuat
+        jDesktopPane1.add(addForm); // Tambahkan ke desktop pane
+        
+        try {
+            addForm.setSelected(true); // Fokuskan
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        log.info("Tombol add clicked");
+    }//GEN-LAST:event_addStudentMouseClicked
+
+    private void searchFormStudentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFormStudentKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFormStudentKeyReleased
+
+    private void tableTeacherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTeacherMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableTeacherMouseClicked
+
+    public void loadDataStudent() {
+    
+        Object header[] = { "Nama", "E-mail", "Tanggal Lahir", "Tempat lahir", "Kelas", "No. Telpon", "Aksi"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+
+        List<Student> all = studentService.getAll();
+
+        tableStudent.setModel(data);
+
+        for (Student student : all) {
+            data.addRow(new Object[] {
+                student.getName(),
+                student.getEmail(),
+                student.getBirthDate(),
+                student.getBirthPlace(),
+                " - ",
+                student.getPhoneNumber(),
+                "  - - - "
+            });
+        }
     }
+    
+    public void loadDataTeacher() {
+        Object header[] = { "Nama", "E-mail", "Tanggal Lahir", "Tempat lahir", "Kelas", "No. Telpon", "Aksi"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+
+        List<Student> all = studentService.getAll();
+
+        tableStudent.setModel(data);
+
+        for (Student student : all) {
+            data.addRow(new Object[] {
+                student.getName(),
+                student.getEmail(),
+                student.getBirthDate(),
+                student.getBirthPlace(),
+                " - ",
+                student.getPhoneNumber(),
+                "  - - - "
+            });
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JInternalFrame addForm;
+    private javax.swing.JButton addStudent;
     private javax.swing.JLabel bg;
+    private javax.swing.JLabel bgAddForm;
+    private javax.swing.JLabel bgClassPanel;
+    private javax.swing.JLabel bgStudentPanel;
+    private javax.swing.JLabel bgStudentPanel3;
+    private javax.swing.JLabel bgTeacherPanel;
     private javax.swing.JButton classButton;
     private javax.swing.JButton costButton;
+    private javax.swing.JTextField emailUser;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JTextField nameUser;
+    private javax.swing.JPanel panelClass;
+    private javax.swing.JPanel panelCost;
+    private javax.swing.JPanel panelStudent;
+    private javax.swing.JPanel panelTeacher;
+    private javax.swing.JTextField searchFormClass;
+    private javax.swing.JTextField searchFormCost;
+    private javax.swing.JTextField searchFormStudent;
+    private javax.swing.JTextField searchFormTeacher;
     private javax.swing.JButton studentButton;
+    private javax.swing.JTable tableStudent;
+    private javax.swing.JTable tableTeacher;
     private javax.swing.JButton teacherButton;
     // End of variables declaration//GEN-END:variables
 }

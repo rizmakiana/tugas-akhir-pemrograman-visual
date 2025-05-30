@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.unindra.view;
+package com.unindra.view.student;
 
+import com.unindra.view.student.RegisterStudentView;
 import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Component;
@@ -38,7 +39,7 @@ public class StudentLoginView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         usernameForm = new javax.swing.JTextField();

@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class RegionService {
     
-
     @Autowired
     private final ProvinceService provinceService;
 
@@ -47,11 +46,8 @@ public class RegionService {
     public String[] getDistrictsByName(String regencyName){
         
         Regency regency = regencyService.findByName(regencyName);
-        log.info("SERVICE : {}, {}",regency.getId(), regency.getName());
 
         List<District> districts = districtService.findByRegencyId(regency.getId());
-        log.info("SERVICE : {}", districts.size());
-
 
         return districts.stream()
                   .map(District::getName)

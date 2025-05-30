@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.unindra.view;
+package com.unindra.view.staff;
 
+import com.unindra.view.staff.RegisterStaffView;
 import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Component;
@@ -21,12 +22,16 @@ public class StaffLoginView extends javax.swing.JFrame {
     private final RegisterStaffView registerStaffView;
 
     private final AuthService authService;
+    
+//    private final StaffDashboardView staffDashboardView;
+    private final Dashboard dashboard;
     /**
      * Creates new form LoginStudentView
      */
-    public StaffLoginView(RegisterStaffView registerStaffView, AuthService authService) {
+    public StaffLoginView(RegisterStaffView registerStaffView, AuthService authService, Dashboard dashboard) {
         this.registerStaffView = registerStaffView;
         this.authService = authService;
+        this.dashboard = dashboard;
         initComponents();
     }
 
@@ -105,11 +110,17 @@ public class StaffLoginView extends javax.swing.JFrame {
         if (errorMessage != null) {
             JOptionPane.showMessageDialog(this, errorMessage, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
         } else {
+            clearField();
             JOptionPane.showMessageDialog(this, "Berhasil login");
-            // ke dashboard staff
+            dashboard.setVisible(true);
         }
     }//GEN-LAST:event_loginButtonMouseClicked
 
+    public void clearField(){
+        
+        usernameForm.setText("");
+        passwordForm.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
