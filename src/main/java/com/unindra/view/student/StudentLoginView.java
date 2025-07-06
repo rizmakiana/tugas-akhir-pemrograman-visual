@@ -4,13 +4,13 @@
  */
 package com.unindra.view.student;
 
-import com.unindra.view.student.RegisterStudentView;
 import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Component;
 
-import com.unindra.model.LoginRequest;
+import com.unindra.model.request.LoginRequest;
 import com.unindra.service.AuthService;
+import com.unindra.view.SelectRoleView;
 
 /**
  *
@@ -22,7 +22,6 @@ public class StudentLoginView extends javax.swing.JFrame {
     private final RegisterStudentView registerStudentView;
 
     private final AuthService authService;
-
     /**
      * Creates new form LoginStudentView
      */
@@ -58,7 +57,7 @@ public class StudentLoginView extends javax.swing.JFrame {
         passwordForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(passwordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 250, 30));
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Login View Student.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Login View Student.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,7 +65,7 @@ public class StudentLoginView extends javax.swing.JFrame {
                 backButtonMouseClicked(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1192, 10, 70, 30));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1195, 10, 70, 30));
 
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -86,20 +85,17 @@ public class StudentLoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_registerButtonMouseClicked
-        // TODO add your handling code here:
         registerStudentView.setVisible(true);
     }// GEN-LAST:event_registerButtonMouseClicked
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_backButtonMouseClicked
-        // TODO add your handling code here:
         this.setVisible(false);
     }// GEN-LAST:event_backButtonMouseClicked
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginButtonMouseClicked
-        // TODO add your handling code here:
 
         String username = usernameForm.getText();
-        String password = passwordForm.getText();
+        String password = new String(passwordForm.getPassword());
 
         LoginRequest request = new LoginRequest(username, password);
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.unindra.entity.Staff;
 import com.unindra.entity.Student;
 import com.unindra.entity.Teacher;
-import com.unindra.model.LoginRequest;
+import com.unindra.model.request.LoginRequest;
 import com.unindra.repository.StaffRepository;
 import com.unindra.repository.StudentRepository;
 import com.unindra.repository.TeacherRepository;

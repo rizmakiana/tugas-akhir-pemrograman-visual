@@ -34,3 +34,5 @@ SELECT * from reg_districts;
 SELECT provinces_id 
 FROM reg_regencies 
 WHERE provinces_id NOT IN (SELECT id FROM reg_provinces);
+
+SELECT * FROM student;

@@ -3,6 +3,7 @@ package com.unindra;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import com.unindra.view.SelectRoleView;
+import java.util.Locale;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -16,6 +17,7 @@ public class MainApp {
 	public static void main(String[] args) throws UnsupportedLookAndFeelException {
 
             UIManager.setLookAndFeel(new FlatLightLaf());
+            Locale.setDefault(Locale.forLanguageTag("id-ID"));
             
             SpringApplication app = new SpringApplication(MainApp.class);
             app.setHeadless(false); // <-- aktifkan GUI
@@ -23,7 +25,6 @@ public class MainApp {
 
             SelectRoleView view = context.getBean(SelectRoleView.class);
             SwingUtilities.invokeLater(() -> view.setVisible(true));
-
 	}
 
 }

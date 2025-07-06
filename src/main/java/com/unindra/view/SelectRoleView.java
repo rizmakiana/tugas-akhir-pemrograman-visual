@@ -50,11 +50,10 @@ public class SelectRoleView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Select Role.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Select Role view.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         studentButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,18 +81,21 @@ public class SelectRoleView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void studentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentButtonMouseClicked
-        // TODO add your handling code here:
+        
         openStudentLogin();
+        
     }//GEN-LAST:event_studentButtonMouseClicked
 
     private void teacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teacherButtonMouseClicked
-        // TODO add your handling code here:
+        
         openTeacherLogin();
+
     }//GEN-LAST:event_teacherButtonMouseClicked
 
     private void staffButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_staffButtonMouseClicked
-        // TODO add your handling code here:
+        
         openStaffLogin();
+
     }//GEN-LAST:event_staffButtonMouseClicked
 
     private void openTeacherLogin(){
@@ -114,4 +116,5 @@ public class SelectRoleView extends javax.swing.JFrame {
     private javax.swing.JButton studentButton;
     private javax.swing.JButton teacherButton;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -6,10 +6,10 @@ package com.unindra.service;
 
 import com.unindra.entity.District;
 import com.unindra.repository.DistrictRepository;
-import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
  * @author rizmakiana
  */
 @Service
-@AllArgsConstructor
 public class DistrictService {
     
-    private final DistrictRepository districtRepository;
+    @Autowired
+    private DistrictRepository districtRepository;
 
     public List<District> findByRegencyId(String regencyId) {
         return districtRepository.findByRegencyId(regencyId);

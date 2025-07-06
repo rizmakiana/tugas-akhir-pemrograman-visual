@@ -56,7 +56,7 @@
     <Component class="javax.swing.JLabel" name="bg">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/assets/Login View Admin.png"/>
+          <Image iconType="3" name="/assets/image/Login View Admin.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -71,7 +71,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1192" y="10" width="70" height="30"/>
+          <AbsoluteConstraints x="1198" y="15" width="70" height="25"/>
         </Constraint>
       </Constraints>
     </Component>

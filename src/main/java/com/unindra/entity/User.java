@@ -22,10 +22,12 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     private String username;
+
+    private String gender;
 
     private String password;
 

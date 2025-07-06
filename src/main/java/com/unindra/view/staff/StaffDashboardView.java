@@ -4,48 +4,86 @@
  */
 package com.unindra.view.staff;
 
+import com.unindra.entity.Classroom;
+import com.unindra.entity.Course;
+import com.unindra.entity.Department;
+import com.unindra.entity.SPPDue;
+import com.unindra.entity.SPPTransaction;
+import com.unindra.entity.Section;
 import com.unindra.entity.Student;
 import com.unindra.entity.Teacher;
-import com.unindra.model.RegisterUserRequest;
-import com.unindra.service.RegionService;
-import com.unindra.service.StudentService;
-import com.unindra.service.UserService;
+import com.unindra.entity.TeachingAssignment;
+import com.unindra.model.request.AddClassRequest;
+import com.unindra.model.request.AddCourseRequest;
+import com.unindra.model.request.AddDepartmentRequest;
+import com.unindra.model.request.AddStudentRequest;
+import com.unindra.model.request.AddTeacherRequest;
+import com.unindra.model.request.AddTeachingAssignmentRequest;
+import com.unindra.model.request.UpdateCourseRequest;
+import com.unindra.model.request.UpdateDepartmentRequest;
+import com.unindra.model.request.UpdateSectionRequest;
+import com.unindra.model.request.UpdateTeacherRequest;
+import com.unindra.model.request.EditStudentRequest;
+import com.unindra.model.request.StudentWithDueInfo;
+import com.unindra.model.request.UpdateClassroomRequest;
+import com.unindra.model.request.StudentWithDueInfo;
+import com.unindra.model.response.ClassResponse;
+import com.unindra.model.response.CourseResponse;
+import com.unindra.model.response.StudentResponse;
+import com.unindra.model.response.TeacherResponse;
+import com.unindra.model.response.TransactionResponse;
+import com.unindra.service.center.StaffMasterService;
 
 import java.beans.PropertyVetoException;
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Class di mana semua fitur untuk seonggok admin
+ * akan dimasukan semua kesini.
+ * 
+ * btw author nya stress
+ * AWKWKWKKW
+ * 
  * @author rizmakiana
  */
 @Component
 @Slf4j
-public class Dashboard extends javax.swing.JFrame {
+public class StaffDashboardView extends javax.swing.JFrame {
 
-    private final UserService userService;
-
-    private final RegionService regionService;
+    private final StaffMasterService masterService;
 
     /**
      * Creates new form Dashboard
      */
-    public Dashboard(UserService userService, RegionService regionService) {
-        this.userService = userService;
-        this.regionService = regionService;
-        initComponents();
+    public StaffDashboardView(StaffMasterService masterService) {
+        this.masterService = masterService;
+        generateComponents();
 
-        loadDataStudent();
+        studentPanel.setVisible(true);
+        teacherPanel.setVisible(false);
+        classroomPanel.setVisible(false);
+        costPanel.setVisible(false);
+        coursePanel.setVisible(false);
     }
 
     /**
@@ -59,77 +97,283 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         layer = new javax.swing.JDesktopPane();
         mainPanel = new javax.swing.JPanel();
-        studentPanel = new javax.swing.JPanel();
-        searchStudentForm = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        studentTable = new javax.swing.JTable();
-        bgStudentPanel = new javax.swing.JLabel();
-        addStudentButton = new javax.swing.JButton();
-        teacherPanel = new javax.swing.JPanel();
-        searchTeacherField = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        teacherTable = new javax.swing.JTable();
-        bgTeacherPanel = new javax.swing.JLabel();
-        addTeacherButton = new javax.swing.JButton();
-        classPanel = new javax.swing.JPanel();
-        searchStudentForm2 = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        classTable = new javax.swing.JTable();
-        bgClassPanel = new javax.swing.JLabel();
-        addStudentButton2 = new javax.swing.JButton();
         costPanel = new javax.swing.JPanel();
         searchStudentForm3 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         costTable = new javax.swing.JTable();
         bgCostPanel = new javax.swing.JLabel();
         addStudentButton3 = new javax.swing.JButton();
+        studentPanel = new javax.swing.JPanel();
+        searchStudentForm = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        studentTable = new javax.swing.JTable();
+        studentPanelDepartmentList = new javax.swing.JComboBox<>();
+        studentPanelClassroomList = new javax.swing.JComboBox<>();
+        studentPanelSectionList = new javax.swing.JComboBox<>();
+        bgStudentPanel = new javax.swing.JLabel();
+        printTableStudentButton = new javax.swing.JButton();
+        addStudentButton = new javax.swing.JButton();
+        teacherPanel = new javax.swing.JPanel();
+        searchTeacherField = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        teacherTable = new javax.swing.JTable();
+        bgTeacherPanel = new javax.swing.JLabel();
+        addTeacherButton = new javax.swing.JButton();
+        printTeacher = new javax.swing.JButton();
+        classroomPanel = new javax.swing.JPanel();
+        searchStudentForm2 = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        departmentTable = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        classroomTable = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        sectionTable = new javax.swing.JTable();
+        bgClassPanel = new javax.swing.JLabel();
+        addDepartmentButton = new javax.swing.JButton();
+        addClassroomButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        coursePanel = new javax.swing.JPanel();
+        searchCourseField = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        courseTable = new javax.swing.JTable();
+        coursePanelDepartmentList = new javax.swing.JComboBox<>();
+        coursePanelClassroomList = new javax.swing.JComboBox<>();
+        bgCoursePanel = new javax.swing.JLabel();
+        addCourseButton = new javax.swing.JButton();
+        printCourse = new javax.swing.JButton();
+        transactionPanel = new javax.swing.JPanel();
+        transactionPanelSearchField = new javax.swing.JTextField();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        transactionTable = new javax.swing.JTable();
+        bgCoursePanel1 = new javax.swing.JLabel();
+        printCourse1 = new javax.swing.JButton();
+        reportPanel = new javax.swing.JPanel();
+        bgCoursePanel2 = new javax.swing.JLabel();
+        reportPanelStudentData = new javax.swing.JButton();
+        reportPanelClassroomPanel = new javax.swing.JButton();
+        reportPanelTeacherData = new javax.swing.JButton();
+        reportPanelTransaction = new javax.swing.JButton();
+        reportPanelCourseData = new javax.swing.JButton();
         bg = new javax.swing.JLabel();
         studentButton = new javax.swing.JButton();
         teacherButton = new javax.swing.JButton();
         classButton = new javax.swing.JButton();
+        courseButton = new javax.swing.JButton();
         costButton = new javax.swing.JButton();
+        transactionButton = new javax.swing.JButton();
+        reportButton = new javax.swing.JButton();
         back = new javax.swing.JButton();
-        addForm = new javax.swing.JInternalFrame();
-        nameAddField = new javax.swing.JTextField();
-        usernameAddField = new javax.swing.JTextField();
-        dateAddField = new javax.swing.JComboBox<>();
-        monthAddField = new javax.swing.JComboBox<>();
-        yearAddField = new javax.swing.JComboBox<>();
-        emailAddField = new javax.swing.JTextField();
-        phoneNumberAddField = new javax.swing.JTextField();
-        provinceAddField = new javax.swing.JComboBox<>();
-        cityAddField = new javax.swing.JComboBox<>();
-        districtAddField = new javax.swing.JComboBox<>();
-        bgAddForm = new javax.swing.JLabel();
-        exitAddUserButton = new javax.swing.JButton();
-        addUserButton = new javax.swing.JButton();
-        userDetailForm = new javax.swing.JInternalFrame();
-        nameDetailField = new javax.swing.JTextField();
-        usernameDetailField = new javax.swing.JTextField();
-        dateDetailField = new javax.swing.JComboBox<>();
-        monthDetailField = new javax.swing.JComboBox<>();
-        yearDetailField = new javax.swing.JComboBox<>();
-        emailDetailField = new javax.swing.JTextField();
-        phoneNumberDetailField = new javax.swing.JTextField();
-        provinceDetailField = new javax.swing.JComboBox<>();
-        cityDetailField = new javax.swing.JComboBox<>();
-        districtDetailField = new javax.swing.JComboBox<>();
+        studentAddForm = new javax.swing.JInternalFrame();
+        studentAddNameField = new javax.swing.JTextField();
+        studentAddGenderField = new javax.swing.JComboBox<>();
+        studentAddUsernameField = new javax.swing.JTextField();
+        studentAddDateField = new javax.swing.JComboBox<>();
+        studentAddMonthField = new javax.swing.JComboBox<>();
+        studentAddYearField = new javax.swing.JComboBox<>();
+        studentAddEmailField = new javax.swing.JTextField();
+        studentAddPhoneNumberField = new javax.swing.JTextField();
+        studentAddProvinceField = new javax.swing.JComboBox<>();
+        studentAddCityField = new javax.swing.JComboBox<>();
+        studentAddDistrictField = new javax.swing.JComboBox<>();
+        studentAddDepartmentField = new javax.swing.JComboBox<>();
+        studentbgAddForm = new javax.swing.JLabel();
+        studentAddExitButton = new javax.swing.JButton();
+        studentAddRegisterButton = new javax.swing.JButton();
+        studentDetailForm = new javax.swing.JInternalFrame();
+        studentDetailNameField = new javax.swing.JTextField();
+        studentDetailGenderField = new javax.swing.JComboBox<>();
+        studentDetailUsernameField = new javax.swing.JTextField();
+        studentDetailDateField = new javax.swing.JComboBox<>();
+        studentDetailMonthField = new javax.swing.JComboBox<>();
+        studentDetailYearField = new javax.swing.JComboBox<>();
+        studentDetailEmailField = new javax.swing.JTextField();
+        studentDetailPhoneNumberField = new javax.swing.JTextField();
+        studentDetailProvinceField = new javax.swing.JComboBox<>();
+        studentDetailCityField = new javax.swing.JComboBox<>();
+        studentDetailDistrictField = new javax.swing.JComboBox<>();
+        studentDetailDepartmentField = new javax.swing.JComboBox<>();
+        studentDetailClassField = new javax.swing.JComboBox<>();
+        studentDetailSectionField = new javax.swing.JComboBox<>();
         bgEditForm = new javax.swing.JLabel();
-        exitUserDetailButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        saveButton = new javax.swing.JButton();
+        studentDetailExitButton = new javax.swing.JButton();
+        studentDetailDeleteButton = new javax.swing.JButton();
+        studentDetailSaveButton = new javax.swing.JButton();
+        teacherAddForm = new javax.swing.JInternalFrame();
+        teacherAddNameField = new javax.swing.JTextField();
+        teacherAddGenderField = new javax.swing.JComboBox<>();
+        teacherAddUsernameField = new javax.swing.JTextField();
+        teacherAddDateField = new javax.swing.JComboBox<>();
+        teacherAddMonthField = new javax.swing.JComboBox<>();
+        teacherAddYearField = new javax.swing.JComboBox<>();
+        teacherAddEmailField = new javax.swing.JTextField();
+        teacherAddPhoneNumberField = new javax.swing.JTextField();
+        teacherAddProvinceField = new javax.swing.JComboBox<>();
+        teacherAddCityField = new javax.swing.JComboBox<>();
+        teacherAddDistrictField = new javax.swing.JComboBox<>();
+        teacherbgAddForm = new javax.swing.JLabel();
+        teacherAddExitButton = new javax.swing.JButton();
+        teacherAddRegisterButton = new javax.swing.JButton();
+        teacherDetailForm = new javax.swing.JInternalFrame();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        teacherDetailNameField = new javax.swing.JTextField();
+        teacherDetailGenderField = new javax.swing.JComboBox<>();
+        teacherDetailUsernameField = new javax.swing.JTextField();
+        teacherDetailDateField = new javax.swing.JComboBox<>();
+        teacherDetailMonthField = new javax.swing.JComboBox<>();
+        teacherDetailYearField = new javax.swing.JComboBox<>();
+        teacherDetailEmailField = new javax.swing.JTextField();
+        teacherDetailPhoneNumberField = new javax.swing.JTextField();
+        teacherDetailProvinceField = new javax.swing.JComboBox<>();
+        teacherDetailCityField = new javax.swing.JComboBox<>();
+        teacherDetailDistrictField = new javax.swing.JComboBox<>();
+        teacherDetailAddCourse = new javax.swing.JButton();
+        bgEditForm1 = new javax.swing.JLabel();
+        teacherDetailExitButton = new javax.swing.JButton();
+        teacherDetailDeleteButton = new javax.swing.JButton();
+        teacherDetailSaveButton = new javax.swing.JButton();
+        teacherAddCourse = new javax.swing.JInternalFrame();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        teacherAddCourseDepartmentList = new javax.swing.JComboBox<>();
+        teacherAddCourseClassroomList = new javax.swing.JComboBox<>();
+        teacherAddCourseSectionList = new javax.swing.JComboBox<>();
+        bgTeacherAddCourse = new javax.swing.JLabel();
+        teacherAddCourseExitButton = new javax.swing.JButton();
+        departmentAddForm = new javax.swing.JInternalFrame();
+        departmentAddDepartmentField = new javax.swing.JTextField();
+        departmentAddCodeField = new javax.swing.JTextField();
+        bgAddDepartment = new javax.swing.JLabel();
+        departmentAddExitButton = new javax.swing.JButton();
+        departmentAddRegisterButton = new javax.swing.JButton();
+        classroomAddForm = new javax.swing.JInternalFrame();
+        classroomAddDepartmentField = new javax.swing.JComboBox<>();
+        classroomAddClassroomField = new javax.swing.JComboBox<>();
+        bgAddClass = new javax.swing.JLabel();
+        classroomAddExitButton = new javax.swing.JButton();
+        classroomAddRegisterButton = new javax.swing.JButton();
+        courseAddForm = new javax.swing.JInternalFrame();
+        courseAddNameField = new javax.swing.JTextField();
+        courseAddDepartmentField = new javax.swing.JComboBox<>();
+        courseAddClassroomField = new javax.swing.JComboBox<>();
+        bgAddCourse = new javax.swing.JLabel();
+        courseAddExitButton = new javax.swing.JButton();
+        courseAddRegisterButton = new javax.swing.JButton();
+        courseDetailForm = new javax.swing.JInternalFrame();
+        courseDetailDepatmentField = new javax.swing.JLabel();
+        courseDetailClassroomField = new javax.swing.JLabel();
+        courseDetailNameField = new javax.swing.JTextField();
+        bgDetailCourse = new javax.swing.JLabel();
+        courseDetailExitButton = new javax.swing.JButton();
+        courseDetailEditButton = new javax.swing.JButton();
+        courseDetailDeleteButton = new javax.swing.JButton();
+        departmentDetail = new javax.swing.JInternalFrame();
+        departmentDetailDepartmentName = new javax.swing.JTextField();
+        departmentDetailTotalClassroom = new javax.swing.JLabel();
+        bgDetailDepartment = new javax.swing.JLabel();
+        departmentDetailSaveButton = new javax.swing.JButton();
+        departmentDetailDeleteButton = new javax.swing.JButton();
+        departmentDetailExitButton = new javax.swing.JButton();
+        classroomDetail = new javax.swing.JInternalFrame();
+        classroomDetailDepartmentName = new javax.swing.JLabel();
+        classroomDetailClassroomName = new javax.swing.JComboBox<>();
+        classroomDetailTotalSection = new javax.swing.JLabel();
+        bgClassroomDetail = new javax.swing.JLabel();
+        classroomDetailSaveButton = new javax.swing.JButton();
+        classroomDetailDeleteButton = new javax.swing.JButton();
+        classroomDetailExitButton = new javax.swing.JButton();
+        sectionDetail = new javax.swing.JInternalFrame();
+        sectionDetailDepartmentName = new javax.swing.JLabel();
+        sectionDetailClassroomName = new javax.swing.JLabel();
+        sectionDetailSectionName = new javax.swing.JTextField();
+        sectionDetailTotalStudent = new javax.swing.JLabel();
+        bgSectionDetail = new javax.swing.JLabel();
+        sectionDetailSaveButton = new javax.swing.JButton();
+        sectionDetailDeleteButton = new javax.swing.JButton();
+        sectionDetailExitButton = new javax.swing.JButton();
+        costDetail = new javax.swing.JInternalFrame();
+        costDetailStudentName = new javax.swing.JLabel();
+        costDetailDepartmentName = new javax.swing.JLabel();
+        costDetailClassroomName = new javax.swing.JLabel();
+        costDetailSectionName = new javax.swing.JLabel();
+        costDetailTotalCost = new javax.swing.JLabel();
+        costDetailMonthField = new javax.swing.JComboBox<>();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        costTable2 = new javax.swing.JTable();
+        bgSectionDetail1 = new javax.swing.JLabel();
+        costDetailExitButton = new javax.swing.JButton();
+        costDetailAddMonth = new javax.swing.JButton();
+        paySppButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        layer.setPreferredSize(new java.awt.Dimension(1280, 720));
         layer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 254));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        costPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchStudentForm3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        costPanel.add(searchStudentForm3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 65, 190, 20));
+
+        jScrollPane5.setBorder(null);
+
+        costTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "NPM", "Nama", "Jurusan", "Kelas", "Total Tunggakan"
+            }
+        ));
+        costTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                costTableMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(costTable);
+
+        costPanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
+
+        bgCostPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
+        bgCostPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - data biaya.png"))); // NOI18N
+        costPanel.add(bgCostPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+        costPanel.add(addStudentButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, 160, 30));
+
+        mainPanel.add(costPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
         studentPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -139,23 +383,21 @@ public class Dashboard extends javax.swing.JFrame {
                 searchStudentFormKeyReleased(evt);
             }
         });
-        studentPanel.add(searchStudentForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 65, 190, 20));
+        studentPanel.add(searchStudentForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 65, 155, 20));
 
         jScrollPane2.setBorder(null);
 
         studentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nama", "Username", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Kelas", "Jurusan"
+                "NPM", "Nama", "Jenis Kelamin", "Tempat lahir", "Tanggal lahir", "Jurusan", "Kelas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -168,19 +410,65 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(studentTable);
+        if (studentTable.getColumnModel().getColumnCount() > 0) {
+            studentTable.getColumnModel().getColumn(0).setResizable(false);
+            studentTable.getColumnModel().getColumn(0).setPreferredWidth(150);
+            studentTable.getColumnModel().getColumn(1).setResizable(false);
+            studentTable.getColumnModel().getColumn(1).setPreferredWidth(160);
+            studentTable.getColumnModel().getColumn(2).setResizable(false);
+            studentTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+            studentTable.getColumnModel().getColumn(3).setResizable(false);
+            studentTable.getColumnModel().getColumn(3).setPreferredWidth(160);
+            studentTable.getColumnModel().getColumn(4).setResizable(false);
+            studentTable.getColumnModel().getColumn(4).setPreferredWidth(90);
+            studentTable.getColumnModel().getColumn(5).setResizable(false);
+            studentTable.getColumnModel().getColumn(5).setPreferredWidth(160);
+            studentTable.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         studentPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
 
+        studentPanelDepartmentList.setBorder(null);
+        studentPanelDepartmentList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                studentPanelDepartmentListItemStateChanged(evt);
+            }
+        });
+        studentPanel.add(studentPanelDepartmentList, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 65, 140, 22));
+
+        studentPanelClassroomList.setBorder(null);
+        studentPanelClassroomList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                studentPanelClassroomListItemStateChanged(evt);
+            }
+        });
+        studentPanel.add(studentPanelClassroomList, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 65, 120, 22));
+
+        studentPanelSectionList.setBorder(null);
+        studentPanelSectionList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                studentPanelSectionListItemStateChanged(evt);
+            }
+        });
+        studentPanel.add(studentPanelSectionList, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 65, 110, 22));
+
         bgStudentPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
-        bgStudentPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data siswa.png"))); // NOI18N
+        bgStudentPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - data siswa.png"))); // NOI18N
         studentPanel.add(bgStudentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+
+        printTableStudentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printTableStudentButtonActionPerformed(evt);
+            }
+        });
+        studentPanel.add(printTableStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 25, 50, 30));
 
         addStudentButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addStudentButtonMouseClicked(evt);
             }
         });
-        studentPanel.add(addStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, 160, 30));
+        studentPanel.add(addStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 25, 140, 30));
 
         mainPanel.add(studentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
@@ -192,23 +480,31 @@ public class Dashboard extends javax.swing.JFrame {
                 searchTeacherFieldKeyReleased(evt);
             }
         });
-        teacherPanel.add(searchTeacherField, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 65, 190, 20));
+        teacherPanel.add(searchTeacherField, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 65, 160, 20));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(null);
+        teacherPanel.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 65, 135, 23));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setBorder(null);
+        teacherPanel.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 65, 120, 23));
 
         jScrollPane3.setBorder(null);
 
         teacherTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nama", "Username", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Status", "Bidang studi"
+                "Id", "Nama", "Tempat lahir", "Tanggal lahir", "Mata Pelajaran yang diampu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -225,7 +521,7 @@ public class Dashboard extends javax.swing.JFrame {
         teacherPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
 
         bgTeacherPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
-        bgTeacherPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data guru.png"))); // NOI18N
+        bgTeacherPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - data guru.png"))); // NOI18N
         teacherPanel.add(bgTeacherPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
         addTeacherButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -233,430 +529,1570 @@ public class Dashboard extends javax.swing.JFrame {
                 addTeacherButtonMouseClicked(evt);
             }
         });
-        teacherPanel.add(addTeacherButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, 160, 30));
+        teacherPanel.add(addTeacherButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 28, 140, 26));
+
+        printTeacher.setText("jButton1");
+        printTeacher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printTeacherActionPerformed(evt);
+            }
+        });
+        teacherPanel.add(printTeacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 28, 50, 26));
 
         mainPanel.add(teacherPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
-        classPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        classroomPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchStudentForm2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        classPanel.add(searchStudentForm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 65, 190, 20));
+        classroomPanel.add(searchStudentForm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 65, 160, 20));
 
         jScrollPane4.setBorder(null);
 
-        classTable.setModel(new javax.swing.table.DefaultTableModel(
+        departmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Nama", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Kelas", "Jurusan"
+                "Kode Jurusan", "Nama Jurusan"
             }
         ));
-        jScrollPane4.setViewportView(classTable);
+        departmentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                departmentTableMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(departmentTable);
 
-        classPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
+        classroomPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 470, 250));
+
+        classroomTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Kode Kelas", "Jurusan", "Kelas"
+            }
+        ));
+        classroomTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                classroomTableMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(classroomTable);
+
+        classroomPanel.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 103, 470, 250));
+
+        sectionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Kode Section", "Jurusan/Kelas", "Nama Section", "Jumlah Murid"
+            }
+        ));
+        sectionTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sectionTableMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(sectionTable);
+
+        classroomPanel.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 960, 270));
 
         bgClassPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
-        bgClassPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data kelas.png"))); // NOI18N
-        classPanel.add(bgClassPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
-        classPanel.add(addStudentButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, 160, 30));
+        bgClassPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - data kelas.png"))); // NOI18N
+        classroomPanel.add(bgClassPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
-        mainPanel.add(classPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+        addDepartmentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addDepartmentButtonMouseClicked(evt);
+            }
+        });
+        classroomPanel.add(addDepartmentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 25, 135, 30));
 
-        costPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        addClassroomButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addClassroomButtonMouseClicked(evt);
+            }
+        });
+        classroomPanel.add(addClassroomButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 25, 120, 30));
 
-        searchStudentForm3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        costPanel.add(searchStudentForm3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 65, 190, 20));
+        jButton1.setText("jButton1");
+        classroomPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 25, 50, 30));
 
-        jScrollPane5.setBorder(null);
+        mainPanel.add(classroomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
-        costTable.setModel(new javax.swing.table.DefaultTableModel(
+        coursePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchCourseField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        coursePanel.add(searchCourseField, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 65, 150, 20));
+
+        jScrollPane6.setBorder(null);
+
+        courseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nama", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Kelas", "Jurusan"
+                "Kode Mata Pelajaran", "Nama Mata Pelajaran", "Kelas", "Jurusan"
             }
         ));
-        jScrollPane5.setViewportView(costTable);
+        courseTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                courseTableMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(courseTable);
+        if (courseTable.getColumnModel().getColumnCount() > 0) {
+            courseTable.getColumnModel().getColumn(3).setHeaderValue("Jurusan");
+        }
 
-        costPanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
+        coursePanel.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
 
-        bgCostPanel.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
-        bgCostPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Panel admin - data biaya.png"))); // NOI18N
-        costPanel.add(bgCostPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
-        costPanel.add(addStudentButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, 160, 30));
+        coursePanelDepartmentList.setBorder(null);
+        coursePanel.add(coursePanelDepartmentList, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 65, 133, 20));
 
-        mainPanel.add(costPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+        coursePanelClassroomList.setBorder(null);
+        coursePanel.add(coursePanelClassroomList, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 65, 110, 20));
+
+        bgCoursePanel.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
+        bgCoursePanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - data mapel.png"))); // NOI18N
+        coursePanel.add(bgCoursePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+
+        addCourseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCourseButtonActionPerformed(evt);
+            }
+        });
+        coursePanel.add(addCourseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(798, 28, 140, 27));
+
+        printCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCourseActionPerformed(evt);
+            }
+        });
+        coursePanel.add(printCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 28, 50, 28));
+
+        mainPanel.add(coursePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+
+        transactionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        transactionPanelSearchField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        transactionPanel.add(transactionPanelSearchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 65, 150, 20));
+
+        jScrollPane11.setBorder(null);
+
+        transactionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "No Order", "Nama siswa", "Tanggal Bayar", "Total Bayar"
+            }
+        ));
+        transactionTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transactionTableMouseClicked(evt);
+            }
+        });
+        jScrollPane11.setViewportView(transactionTable);
+
+        transactionPanel.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 103, 960, 535));
+
+        bgCoursePanel1.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
+        bgCoursePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - transaksi.png"))); // NOI18N
+        transactionPanel.add(bgCoursePanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+
+        printCourse1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCourse1ActionPerformed(evt);
+            }
+        });
+        transactionPanel.add(printCourse1, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 28, 50, 28));
+
+        mainPanel.add(transactionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+
+        reportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bgCoursePanel2.setFont(new java.awt.Font("Adwaita Mono", 0, 14)); // NOI18N
+        bgCoursePanel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Panel admin - report.png"))); // NOI18N
+        reportPanel.add(bgCoursePanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
+
+        reportPanelStudentData.setText("jButton2");
+        reportPanelStudentData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportPanelStudentDataActionPerformed(evt);
+            }
+        });
+        reportPanel.add(reportPanelStudentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 170, 160));
+
+        reportPanelClassroomPanel.setText("jButton2");
+        reportPanelClassroomPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportPanelClassroomPanelActionPerformed(evt);
+            }
+        });
+        reportPanel.add(reportPanelClassroomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 170, 160));
+
+        reportPanelTeacherData.setText("jButton2");
+        reportPanelTeacherData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportPanelTeacherDataActionPerformed(evt);
+            }
+        });
+        reportPanel.add(reportPanelTeacherData, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 170, 160));
+
+        reportPanelTransaction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportPanelTransactionActionPerformed(evt);
+            }
+        });
+        reportPanel.add(reportPanelTransaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 160, 160));
+
+        reportPanelCourseData.setText("jButton2");
+        reportPanelCourseData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportPanelCourseDataActionPerformed(evt);
+            }
+        });
+        reportPanel.add(reportPanelCourseData, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, 170, 160));
+
+        mainPanel.add(reportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 660));
 
         layer.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 1010, 660));
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Dashboard Admin.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Dashboard Admin.png"))); // NOI18N
         layer.add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
-        studentButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                studentButtonMouseClicked(evt);
+        studentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentButtonActionPerformed(evt);
             }
         });
-        layer.add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 150, 60));
+        layer.add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 125, 150, 40));
 
-        teacherButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teacherButtonMouseClicked(evt);
+        teacherButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherButtonActionPerformed(evt);
             }
         });
-        layer.add(teacherButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 150, 60));
+        layer.add(teacherButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 175, 140, 40));
 
-        classButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                classButtonMouseClicked(evt);
+        classButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classButtonActionPerformed(evt);
             }
         });
-        layer.add(classButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 150, 60));
+        layer.add(classButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 225, 140, 40));
 
-        costButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                costButtonMouseClicked(evt);
+        courseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseButtonActionPerformed(evt);
             }
         });
-        layer.add(costButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 150, 60));
+        layer.add(courseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 275, 155, 40));
 
-        back.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backMouseClicked(evt);
+        costButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                costButtonActionPerformed(evt);
+            }
+        });
+        layer.add(costButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 325, 150, 40));
+
+        transactionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transactionButtonActionPerformed(evt);
+            }
+        });
+        layer.add(transactionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 375, 150, 40));
+
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportButtonActionPerformed(evt);
+            }
+        });
+        layer.add(reportButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 425, 150, 40));
+
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
             }
         });
         layer.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 660, 180, 40));
 
-        addForm.setVisible(true);
-        addForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        studentAddForm.setVisible(true);
+        studentAddForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nameAddField.setBackground(new java.awt.Color(216, 216, 216));
-        nameAddField.setBorder(null);
-        addForm.getContentPane().add(nameAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 300, 30));
+        studentAddNameField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddNameField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 95, 310, 25));
 
-        usernameAddField.setBackground(new java.awt.Color(216, 216, 216));
-        usernameAddField.setBorder(null);
-        addForm.getContentPane().add(usernameAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 130, 30));
+        studentAddGenderField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddGenderField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        studentAddGenderField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddGenderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 95, 130, 25));
 
-        dateAddField.setBackground(new java.awt.Color(216, 216, 216));
-        dateAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getDates()));
-        dateAddField.setBorder(null);
-        addForm.getContentPane().add(dateAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 140, -1));
+        studentAddUsernameField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddUsernameField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 205, 140, 25));
 
-        monthAddField.setBackground(new java.awt.Color(216, 216, 216));
-        monthAddField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        monthAddField.setBorder(null);
-        addForm.getContentPane().add(monthAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 130, -1));
+        studentAddDateField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddDateField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddDateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 150, 140, 25));
 
-        yearAddField.setBackground(new java.awt.Color(216, 216, 216));
-        yearAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getYears()));
-        yearAddField.setBorder(null);
-        addForm.getContentPane().add(yearAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 130, -1));
+        studentAddMonthField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddMonthField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddMonthField, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 150, 140, 25));
 
-        emailAddField.setBackground(new java.awt.Color(216, 216, 216));
-        emailAddField.setBorder(null);
-        addForm.getContentPane().add(emailAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 210, 20));
+        studentAddYearField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddYearField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddYearField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 150, 140, -1));
 
-        phoneNumberAddField.setBackground(new java.awt.Color(216, 216, 216));
-        phoneNumberAddField.setBorder(null);
-        addForm.getContentPane().add(phoneNumberAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 210, 20));
+        studentAddEmailField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddEmailField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 205, 140, 25));
 
-        provinceAddField.setBackground(new java.awt.Color(216, 216, 216));
-        provinceAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getProvinces()));
-        provinceAddField.setBorder(null);
-        provinceAddField.addItemListener(new java.awt.event.ItemListener() {
+        studentAddPhoneNumberField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddPhoneNumberField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddPhoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 205, 140, 25));
+
+        studentAddProvinceField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddProvinceField.setBorder(null);
+        studentAddProvinceField.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                provinceAddFieldItemStateChanged(evt);
+                studentAddProvinceFieldItemStateChanged(evt);
             }
         });
-        addForm.getContentPane().add(provinceAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 275, 450, -1));
+        studentAddForm.getContentPane().add(studentAddProvinceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 260, 140, 25));
 
-        cityAddField.setBackground(new java.awt.Color(216, 216, 216));
-        cityAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getRegencies(provinceAddField)));
-        cityAddField.setBorder(null);
-        cityAddField.addItemListener(new java.awt.event.ItemListener() {
+        studentAddCityField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddCityField.setBorder(null);
+        studentAddCityField.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cityAddFieldItemStateChanged(evt);
+                studentAddCityFieldItemStateChanged(evt);
             }
         });
-        addForm.getContentPane().add(cityAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 210, -1));
+        studentAddForm.getContentPane().add(studentAddCityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 260, 140, 25));
 
-        districtAddField.setBackground(new java.awt.Color(216, 216, 216));
-        districtAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts(cityAddField)));
-        districtAddField.setBorder(null);
-        addForm.getContentPane().add(districtAddField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 210, 20));
+        studentAddDistrictField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddDistrictField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddDistrictField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 260, 140, 25));
 
-        bgAddForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-form.png"))); // NOI18N
-        addForm.getContentPane().add(bgAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 510));
+        studentAddDepartmentField.setBackground(new java.awt.Color(216, 216, 216));
+        studentAddDepartmentField.setBorder(null);
+        studentAddForm.getContentPane().add(studentAddDepartmentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 315, 140, 25));
 
-        exitAddUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitAddUserButtonMouseClicked(evt);
+        studentbgAddForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/add-form-student.png"))); // NOI18N
+        studentAddForm.getContentPane().add(studentbgAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 560, 510));
+
+        studentAddExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentAddExitButtonActionPerformed(evt);
             }
         });
-        addForm.getContentPane().add(exitAddUserButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 40, 30, 30));
+        studentAddForm.getContentPane().add(studentAddExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 38, 30, 30));
 
-        addUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addUserButtonMouseClicked(evt);
+        studentAddRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentAddRegisterButtonActionPerformed(evt);
             }
         });
-        addForm.getContentPane().add(addUserButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 120, 40));
+        studentAddForm.getContentPane().add(studentAddRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, 120, 40));
 
-        layer.add(addForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+        layer.add(studentAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(595, 130, -1, -1));
 
-        userDetailForm.setVisible(true);
-        userDetailForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        studentDetailForm.setVisible(true);
+        studentDetailForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nameDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        nameDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(nameDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 300, 30));
+        studentDetailNameField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailNameField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 95, 295, 25));
 
-        usernameDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        usernameDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(usernameDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 130, 30));
+        studentDetailGenderField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailGenderField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        studentDetailGenderField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailGenderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 95, 130, 25));
 
-        dateDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        dateDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getDates()));
-        dateDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(dateDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 140, -1));
+        studentDetailUsernameField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailUsernameField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 205, 140, 25));
 
-        monthDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        monthDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        monthDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(monthDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 130, -1));
+        studentDetailDateField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailDateField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailDateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 150, 140, -1));
 
-        yearDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        yearDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getYears()));
-        yearDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(yearDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 130, -1));
+        studentDetailMonthField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailMonthField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailMonthField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 150, 140, -1));
 
-        emailDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        emailDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(emailDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 210, 20));
+        studentDetailYearField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailYearField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailYearField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 135, -1));
 
-        phoneNumberDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        phoneNumberDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(phoneNumberDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 210, 20));
+        studentDetailEmailField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailEmailField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 205, 140, 25));
 
-        provinceDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        provinceDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getProvinces()));
-        provinceDetailField.setBorder(null);
-        provinceDetailField.addItemListener(new java.awt.event.ItemListener() {
+        studentDetailPhoneNumberField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailPhoneNumberField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailPhoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 205, 140, 25));
+
+        studentDetailProvinceField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailProvinceField.setBorder(null);
+        studentDetailProvinceField.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                provinceDetailFieldItemStateChanged(evt);
+                studentDetailProvinceFieldItemStateChanged(evt);
             }
         });
-        userDetailForm.getContentPane().add(provinceDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 275, 450, -1));
+        studentDetailForm.getContentPane().add(studentDetailProvinceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, 140, 25));
 
-        cityDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        cityDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getRegencies(provinceDetailField)));
-        cityDetailField.setBorder(null);
-        cityDetailField.addItemListener(new java.awt.event.ItemListener() {
+        studentDetailCityField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailCityField.setBorder(null);
+        studentDetailCityField.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cityDetailFieldItemStateChanged(evt);
+                studentDetailCityFieldItemStateChanged(evt);
             }
         });
-        userDetailForm.getContentPane().add(cityDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 210, -1));
+        studentDetailForm.getContentPane().add(studentDetailCityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 260, 140, 25));
 
-        districtDetailField.setBackground(new java.awt.Color(216, 216, 216));
-        districtDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts(cityDetailField)));
-        districtDetailField.setBorder(null);
-        userDetailForm.getContentPane().add(districtDetailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 210, 20));
+        studentDetailDistrictField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailDistrictField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailDistrictField, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 260, 140, 25));
 
-        bgEditForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/update-delete form.png"))); // NOI18N
-        userDetailForm.getContentPane().add(bgEditForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 510));
+        studentDetailDepartmentField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailDepartmentField.setBorder(null);
+        studentDetailDepartmentField.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                studentDetailDepartmentFieldItemStateChanged(evt);
+            }
+        });
+        studentDetailForm.getContentPane().add(studentDetailDepartmentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 315, 140, 25));
 
-        exitUserDetailButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        studentDetailClassField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailClassField.setBorder(null);
+        studentDetailClassField.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                studentDetailClassFieldItemStateChanged(evt);
+            }
+        });
+        studentDetailForm.getContentPane().add(studentDetailClassField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 315, 140, 25));
+
+        studentDetailSectionField.setBackground(new java.awt.Color(216, 216, 216));
+        studentDetailSectionField.setBorder(null);
+        studentDetailForm.getContentPane().add(studentDetailSectionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 315, 140, 25));
+
+        bgEditForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/detail-form-student.png"))); // NOI18N
+        studentDetailForm.getContentPane().add(bgEditForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 510));
+
+        studentDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentDetailExitButtonActionPerformed(evt);
+            }
+        });
+        studentDetailForm.getContentPane().add(studentDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 38, 30, 30));
+
+        studentDetailDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentDetailDeleteButtonActionPerformed(evt);
+            }
+        });
+        studentDetailForm.getContentPane().add(studentDetailDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 120, 40));
+
+        studentDetailSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentDetailSaveButtonActionPerformed(evt);
+            }
+        });
+        studentDetailForm.getContentPane().add(studentDetailSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 440, 120, 40));
+
+        layer.add(studentDetailForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 130, -1, -1));
+
+        teacherAddForm.setVisible(true);
+        teacherAddForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        teacherAddNameField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddNameField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 95, 310, 25));
+
+        teacherAddGenderField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddGenderField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        teacherAddGenderField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddGenderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 95, 125, 25));
+
+        teacherAddUsernameField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddUsernameField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 205, 140, 25));
+
+        teacherAddDateField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddDateField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddDateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 150, 140, 25));
+
+        teacherAddMonthField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddMonthField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddMonthField, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 150, 140, 25));
+
+        teacherAddYearField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddYearField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddYearField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 150, 140, -1));
+
+        teacherAddEmailField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddEmailField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 205, 140, 25));
+
+        teacherAddPhoneNumberField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddPhoneNumberField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddPhoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 205, 140, 25));
+
+        teacherAddProvinceField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddProvinceField.setBorder(null);
+        teacherAddProvinceField.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                teacherAddProvinceFieldItemStateChanged(evt);
+            }
+        });
+        teacherAddForm.getContentPane().add(teacherAddProvinceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 260, 140, 25));
+
+        teacherAddCityField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddCityField.setBorder(null);
+        teacherAddCityField.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                teacherAddCityFieldItemStateChanged(evt);
+            }
+        });
+        teacherAddForm.getContentPane().add(teacherAddCityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 260, 140, 25));
+
+        teacherAddDistrictField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherAddDistrictField.setBorder(null);
+        teacherAddForm.getContentPane().add(teacherAddDistrictField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 260, 140, 25));
+
+        teacherbgAddForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/add-form-teacher.png"))); // NOI18N
+        teacherAddForm.getContentPane().add(teacherbgAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 560, 510));
+
+        teacherAddExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherAddExitButtonActionPerformed(evt);
+            }
+        });
+        teacherAddForm.getContentPane().add(teacherAddExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 38, 30, 30));
+
+        teacherAddRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherAddRegisterButtonActionPerformed(evt);
+            }
+        });
+        teacherAddForm.getContentPane().add(teacherAddRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, 120, 40));
+
+        layer.add(teacherAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 130, -1, -1));
+
+        teacherDetailForm.setVisible(true);
+        teacherDetailForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Jurusan ", "Kelas/Section", "Mata Pelajaran"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        teacherDetailForm.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 310, 470, 120));
+
+        teacherDetailNameField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailNameField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 95, 310, 25));
+
+        teacherDetailGenderField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailGenderField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        teacherDetailGenderField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailGenderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 95, 125, 25));
+
+        teacherDetailUsernameField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailUsernameField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 205, 140, 25));
+
+        teacherDetailDateField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailDateField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailDateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 150, 140, 25));
+
+        teacherDetailMonthField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailMonthField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailMonthField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 150, 140, 25));
+
+        teacherDetailYearField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailYearField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailYearField, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 150, 140, 25));
+
+        teacherDetailEmailField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailEmailField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 205, 140, 25));
+
+        teacherDetailPhoneNumberField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailPhoneNumberField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailPhoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 205, 140, 25));
+
+        teacherDetailProvinceField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailProvinceField.setBorder(null);
+        teacherDetailProvinceField.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                teacherDetailProvinceFieldItemStateChanged(evt);
+            }
+        });
+        teacherDetailForm.getContentPane().add(teacherDetailProvinceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, 140, 25));
+
+        teacherDetailCityField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailCityField.setBorder(null);
+        teacherDetailCityField.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                teacherDetailCityFieldItemStateChanged(evt);
+            }
+        });
+        teacherDetailForm.getContentPane().add(teacherDetailCityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 260, 140, 25));
+
+        teacherDetailDistrictField.setBackground(new java.awt.Color(216, 216, 216));
+        teacherDetailDistrictField.setBorder(null);
+        teacherDetailForm.getContentPane().add(teacherDetailDistrictField, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 260, 140, 25));
+
+        teacherDetailAddCourse.setText("Tambah Mata Pelajaran");
+        teacherDetailAddCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherDetailAddCourseActionPerformed(evt);
+            }
+        });
+        teacherDetailForm.getContentPane().add(teacherDetailAddCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, -1, -1));
+
+        bgEditForm1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/detail-form-teacher.png"))); // NOI18N
+        teacherDetailForm.getContentPane().add(bgEditForm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 510));
+
+        teacherDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherDetailExitButtonActionPerformed(evt);
+            }
+        });
+        teacherDetailForm.getContentPane().add(teacherDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 38, 30, 30));
+
+        teacherDetailDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherDetailDeleteButtonActionPerformed(evt);
+            }
+        });
+        teacherDetailForm.getContentPane().add(teacherDetailDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 120, 40));
+
+        teacherDetailSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherDetailSaveButtonActionPerformed(evt);
+            }
+        });
+        teacherDetailForm.getContentPane().add(teacherDetailSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 440, 120, 40));
+
+        layer.add(teacherDetailForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, -1));
+
+        teacherAddCourse.setVisible(true);
+        teacherAddCourse.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Jurusan", "Kelas", "Section", "Mata Pelajaran"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitUserDetailButtonMouseClicked(evt);
+                jTable2MouseClicked(evt);
             }
         });
-        userDetailForm.getContentPane().add(exitUserDetailButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 40, 30, 30));
+        jScrollPane9.setViewportView(jTable2);
 
-        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        teacherAddCourse.getContentPane().add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 120, 470, 350));
+
+        teacherAddCourseDepartmentList.setBorder(null);
+        teacherAddCourseDepartmentList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                teacherAddCourseDepartmentListItemStateChanged(evt);
+            }
+        });
+        teacherAddCourse.getContentPane().add(teacherAddCourseDepartmentList, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 82, 140, 25));
+
+        teacherAddCourseClassroomList.setBorder(null);
+        teacherAddCourseClassroomList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                teacherAddCourseClassroomListItemStateChanged(evt);
+            }
+        });
+        teacherAddCourse.getContentPane().add(teacherAddCourseClassroomList, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 82, 120, 25));
+
+        teacherAddCourseSectionList.setBorder(null);
+        teacherAddCourse.getContentPane().add(teacherAddCourseSectionList, new org.netbeans.lib.awtextra.AbsoluteConstraints(393, 82, 110, 25));
+
+        bgTeacherAddCourse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/add-course-for-teacher.png"))); // NOI18N
+        teacherAddCourse.getContentPane().add(bgTeacherAddCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 510));
+
+        teacherAddCourseExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherAddCourseExitButtonActionPerformed(evt);
+            }
+        });
+        teacherAddCourse.getContentPane().add(teacherAddCourseExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 30, 30));
+
+        layer.add(teacherAddCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        departmentAddForm.setVisible(true);
+        departmentAddForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        departmentAddDepartmentField.setBackground(new java.awt.Color(216, 216, 216));
+        departmentAddDepartmentField.setBorder(null);
+        departmentAddForm.getContentPane().add(departmentAddDepartmentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 90, 315, 25));
+
+        departmentAddCodeField.setBackground(new java.awt.Color(216, 216, 216));
+        departmentAddCodeField.setBorder(null);
+        departmentAddForm.getContentPane().add(departmentAddCodeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 90, 125, 25));
+
+        bgAddDepartment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/add-class.png"))); // NOI18N
+        departmentAddForm.getContentPane().add(bgAddDepartment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 550, 230));
+
+        departmentAddExitButton.setText("jButton1");
+        departmentAddExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentAddExitButtonActionPerformed(evt);
+            }
+        });
+        departmentAddForm.getContentPane().add(departmentAddExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 26, 30, 30));
+
+        departmentAddRegisterButton.setText("jButton1");
+        departmentAddRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentAddRegisterButtonActionPerformed(evt);
+            }
+        });
+        departmentAddForm.getContentPane().add(departmentAddRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 120, 40));
+
+        layer.add(departmentAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 570, 250));
+
+        classroomAddForm.setVisible(true);
+        classroomAddForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        classroomAddDepartmentField.setBackground(new java.awt.Color(216, 216, 216));
+        classroomAddDepartmentField.setBorder(null);
+        classroomAddForm.getContentPane().add(classroomAddDepartmentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 90, 315, 25));
+
+        classroomAddClassroomField.setBackground(new java.awt.Color(216, 216, 216));
+        classroomAddClassroomField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
+        classroomAddClassroomField.setBorder(null);
+        classroomAddForm.getContentPane().add(classroomAddClassroomField, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 90, 130, 25));
+
+        bgAddClass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/add-major.png"))); // NOI18N
+        classroomAddForm.getContentPane().add(bgAddClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 550, 230));
+
+        classroomAddExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomAddExitButtonActionPerformed(evt);
+            }
+        });
+        classroomAddForm.getContentPane().add(classroomAddExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 27, 30, 30));
+
+        classroomAddRegisterButton.setText("jButton1");
+        classroomAddRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomAddRegisterButtonActionPerformed(evt);
+            }
+        });
+        classroomAddForm.getContentPane().add(classroomAddRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 120, 40));
+
+        layer.add(classroomAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 120, 570, 250));
+
+        courseAddForm.setVisible(true);
+        courseAddForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        courseAddNameField.setBackground(new java.awt.Color(216, 216, 216));
+        courseAddNameField.setBorder(null);
+        courseAddForm.getContentPane().add(courseAddNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 150, 460, 25));
+
+        courseAddDepartmentField.setBackground(new java.awt.Color(216, 216, 216));
+        courseAddDepartmentField.setBorder(null);
+        courseAddForm.getContentPane().add(courseAddDepartmentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 95, 310, -1));
+
+        courseAddClassroomField.setBackground(new java.awt.Color(216, 216, 216));
+        courseAddClassroomField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
+        courseAddClassroomField.setBorder(null);
+        courseAddForm.getContentPane().add(courseAddClassroomField, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 95, 120, -1));
+
+        bgAddCourse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/add mapel.png"))); // NOI18N
+        courseAddForm.getContentPane().add(bgAddCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 555, 280));
+
+        courseAddExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseAddExitButtonActionPerformed(evt);
+            }
+        });
+        courseAddForm.getContentPane().add(courseAddExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 30, 30));
+
+        courseAddRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseAddRegisterButtonActionPerformed(evt);
+            }
+        });
+        courseAddForm.getContentPane().add(courseAddRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 120, 40));
+
+        layer.add(courseAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, -1, -1));
+
+        courseDetailForm.setVisible(true);
+        courseDetailForm.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        courseDetailForm.getContentPane().add(courseDetailDepatmentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 95, 315, 25));
+        courseDetailForm.getContentPane().add(courseDetailClassroomField, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 95, 120, 25));
+
+        courseDetailNameField.setBackground(new java.awt.Color(216, 216, 216));
+        courseDetailNameField.setBorder(null);
+        courseDetailForm.getContentPane().add(courseDetailNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 150, 460, 25));
+
+        bgDetailCourse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/detail mapel.png"))); // NOI18N
+        courseDetailForm.getContentPane().add(bgDetailCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 555, 280));
+
+        courseDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseDetailExitButtonActionPerformed(evt);
+            }
+        });
+        courseDetailForm.getContentPane().add(courseDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 30, 30));
+
+        courseDetailEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseDetailEditButtonActionPerformed(evt);
+            }
+        });
+        courseDetailForm.getContentPane().add(courseDetailEditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 210, 120, 40));
+
+        courseDetailDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseDetailDeleteButtonActionPerformed(evt);
+            }
+        });
+        courseDetailForm.getContentPane().add(courseDetailDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 120, 40));
+
+        layer.add(courseDetailForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, -1, -1));
+
+        departmentDetail.setVisible(true);
+        departmentDetail.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        departmentDetailDepartmentName.setBackground(new java.awt.Color(216, 216, 216));
+        departmentDetailDepartmentName.setBorder(null);
+        departmentDetail.getContentPane().add(departmentDetailDepartmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 92, 315, 25));
+        departmentDetail.getContentPane().add(departmentDetailTotalClassroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 92, 120, 25));
+
+        bgDetailDepartment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/detail-department.png"))); // NOI18N
+        bgDetailDepartment.setText("jLabel1");
+        departmentDetail.getContentPane().add(bgDetailDepartment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, -1));
+
+        departmentDetailSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentDetailSaveButtonActionPerformed(evt);
+            }
+        });
+        departmentDetail.getContentPane().add(departmentDetailSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 162, 120, 40));
+
+        departmentDetailDeleteButton.setText("jButton2");
+        departmentDetailDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentDetailDeleteButtonActionPerformed(evt);
+            }
+        });
+        departmentDetail.getContentPane().add(departmentDetailDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 162, 120, 40));
+
+        departmentDetailExitButton.setText("jButton2");
+        departmentDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentDetailExitButtonActionPerformed(evt);
+            }
+        });
+        departmentDetail.getContentPane().add(departmentDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 30, 30));
+
+        layer.add(departmentDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 95, -1, -1));
+
+        classroomDetail.setVisible(true);
+        classroomDetail.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        classroomDetail.getContentPane().add(classroomDetailDepartmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 92, 215, 25));
+
+        classroomDetailClassroomName.setBackground(new java.awt.Color(216, 216, 216));
+        classroomDetailClassroomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
+        classroomDetailClassroomName.setBorder(null);
+        classroomDetail.getContentPane().add(classroomDetailClassroomName, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 92, 105, 25));
+        classroomDetail.getContentPane().add(classroomDetailTotalSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 100, 25));
+
+        bgClassroomDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/detail-classroom.png"))); // NOI18N
+        classroomDetail.getContentPane().add(bgClassroomDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, -1));
+
+        classroomDetailSaveButton.setText("jButton2");
+        classroomDetailSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomDetailSaveButtonActionPerformed(evt);
+            }
+        });
+        classroomDetail.getContentPane().add(classroomDetailSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 158, 120, 40));
+
+        classroomDetailDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomDetailDeleteButtonActionPerformed(evt);
+            }
+        });
+        classroomDetail.getContentPane().add(classroomDetailDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 158, 120, 40));
+
+        classroomDetailExitButton.setText("jButton2");
+        classroomDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomDetailExitButtonActionPerformed(evt);
+            }
+        });
+        classroomDetail.getContentPane().add(classroomDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 30, 30));
+
+        layer.add(classroomDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 95, -1, -1));
+
+        sectionDetail.setVisible(true);
+        sectionDetail.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        sectionDetail.getContentPane().add(sectionDetailDepartmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 92, 210, 25));
+        sectionDetail.getContentPane().add(sectionDetailClassroomName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 92, 150, 25));
+
+        sectionDetailSectionName.setBackground(new java.awt.Color(216, 216, 216));
+        sectionDetailSectionName.setBorder(null);
+        sectionDetail.getContentPane().add(sectionDetailSectionName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 92, 50, 25));
+        sectionDetail.getContentPane().add(sectionDetailTotalStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 147, 120, 25));
+
+        bgSectionDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/detail-section.png"))); // NOI18N
+        sectionDetail.getContentPane().add(bgSectionDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 310));
+
+        sectionDetailSaveButton.setText("jButton2");
+        sectionDetailSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sectionDetailSaveButtonActionPerformed(evt);
+            }
+        });
+        sectionDetail.getContentPane().add(sectionDetailSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 120, 40));
+
+        sectionDetailDeleteButton.setText("jButton3");
+        sectionDetailDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sectionDetailDeleteButtonActionPerformed(evt);
+            }
+        });
+        sectionDetail.getContentPane().add(sectionDetailDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 120, 40));
+
+        sectionDetailExitButton.setText("jButton2");
+        sectionDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sectionDetailExitButtonActionPerformed(evt);
+            }
+        });
+        sectionDetail.getContentPane().add(sectionDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 30, 30));
+
+        layer.add(sectionDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 95, -1, -1));
+
+        costDetail.setVisible(true);
+        costDetail.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        costDetail.getContentPane().add(costDetailStudentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 87, 460, 30));
+        costDetail.getContentPane().add(costDetailDepartmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 132, 210, 30));
+        costDetail.getContentPane().add(costDetailClassroomName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 132, 130, 30));
+        costDetail.getContentPane().add(costDetailSectionName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 132, 80, 30));
+
+        costDetailTotalCost.setText("100000");
+        costDetail.getContentPane().add(costDetailTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 421, 80, -1));
+
+        costDetailMonthField.setBorder(null);
+        costDetail.getContentPane().add(costDetailMonthField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 183, 130, 25));
+
+        costTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Bulan", "Biaya"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        costTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteButtonMouseClicked(evt);
+                costTable2MouseClicked(evt);
             }
         });
-        userDetailForm.getContentPane().add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 120, 40));
+        jScrollPane10.setViewportView(costTable2);
+        if (costTable2.getColumnModel().getColumnCount() > 0) {
+            costTable2.getColumnModel().getColumn(0).setResizable(false);
+            costTable2.getColumnModel().getColumn(1).setResizable(false);
+        }
 
-        saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saveButtonMouseClicked(evt);
+        costDetail.getContentPane().add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 216, 475, 190));
+
+        bgSectionDetail1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/bayar spp.png"))); // NOI18N
+        costDetail.getContentPane().add(bgSectionDetail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 550));
+
+        costDetailExitButton.setText("jButton2");
+        costDetailExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                costDetailExitButtonActionPerformed(evt);
             }
         });
-        userDetailForm.getContentPane().add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 120, 40));
+        costDetail.getContentPane().add(costDetailExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 28, 30, 30));
 
-        layer.add(userDetailForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, -1, -1));
+        costDetailAddMonth.setText("jButton2");
+        costDetailAddMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                costDetailAddMonthActionPerformed(evt);
+            }
+        });
+        costDetail.getContentPane().add(costDetailAddMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 180, 100, 30));
+
+        paySppButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paySppButtonActionPerformed(evt);
+            }
+        });
+        costDetail.getContentPane().add(paySppButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, 130, 40));
+
+        layer.add(costDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 95, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(layer)
+            .addComponent(layer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(layer)
+            .addComponent(layer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchTeacherFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTeacherFieldKeyReleased
-        // TODO add your handling code here:
-        List<Teacher> searchTeachers = userService.searchTeachers(searchTeacherField.getText());
-
-        loadDataTeacher(searchTeachers);
-    }//GEN-LAST:event_searchTeacherFieldKeyReleased
-
-    private void searchStudentFormKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_searchStudentFormKeyReleased
-        // TODO add your handling code here:
-        List<Student> searchUsers = userService.searchStundets(searchStudentForm.getText());
-
-        loadDataStudent(searchUsers);
-
-    }// GEN-LAST:event_searchStudentFormKeyReleased
-
-    private void addTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addTeacherButtonMouseClicked
-        // TODO add your handling code here:
-        addForm.setVisible(true);
-
+    private void reportPanelStudentDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportPanelStudentDataActionPerformed
+        
         try {
-            addForm.setSelected(true); // Fokuskan
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }// GEN-LAST:event_addTeacherButtonMouseClicked
+            List<StudentResponse> data = new ArrayList<>();
 
-    private void teacherTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherTableMouseClicked
-        // TODO add your handling code here:
+            List<Student> students = masterService.findStudents();
 
-        int row = teacherTable.getSelectedRow();
-        String username = teacherTable.getModel().getValueAt(row, 1).toString();
+            for (Student student : students) {
+                StudentResponse response = new StudentResponse();
 
-        Teacher student = userService.findTeacherByUsername(username);
+                response.setId(String.valueOf(student.getId()));
+                response.setName(student.getName());
+                response.setGender(student.getGender());
+                response.setBirthplace(student.getBirthPlace());
+                response.setBirthdate(student.getBirthDate().toString());
+                response.setDepartment(student.getDepartment().getName());
+                response.setClassroom(student.getClassroom().getName());
 
-        id = student.getId();
-        nameDetailField.setText(student.getName());
-        usernameDetailField.setText(student.getUsername());
-        emailDetailField.setText(student.getEmail());
-        phoneNumberDetailField.setText(student.getPhoneNumber());
+                data.add(response);
+            }
 
-        LocalDate date = student.getBirthDate();
+            String reportPath = "src/main/resources/assets/report/StudentReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
 
-        dateDetailField.setSelectedIndex(date.getDayOfMonth() - 1);
-        monthDetailField.setSelectedIndex(date.getMonthValue() - 1);
-        yearDetailField.setSelectedItem(date.getYear());
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
 
-        String[] birthPlace = student.getBirthPlace().split(", ");
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
 
-        String province = birthPlace[2];
-        String city = birthPlace[1];
-        String district = birthPlace[0];
-
-        updateRegionDetailComboBoxes(province, city, district);
-
-        userDetailForm.setVisible(true);
-
-        try {
-            userDetailForm.setSelected(true);
-        } catch (PropertyVetoException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }// GEN-LAST:event_teacherTableMouseClicked
 
-    private void addUserButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addUserButtonMouseClicked
+    }//GEN-LAST:event_reportPanelStudentDataActionPerformed
+
+    private void reportPanelClassroomPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportPanelClassroomPanelActionPerformed
+        
+        try {
+            List<ClassResponse> data = new ArrayList<>();
+
+            List<Section> sections = masterService.findSection();
+
+            for (Section section : sections) {
+                ClassResponse response = new ClassResponse();
+                
+                String classroom = section.getClassroom().getName();
+                String sectionName = section.getName();
+
+                String joinedClassroom = classroom+"/"+sectionName;
+
+                response.setIdSection(String.valueOf(section.getId()));
+                response.setDepartment(section.getClassroom().getDepartment().getName());
+                response.setSection(joinedClassroom);
+                response.setStudentquantity(String.valueOf(section.getStudents().size()));
+
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/ClassReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_reportPanelClassroomPanelActionPerformed
+
+    private void reportPanelTeacherDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportPanelTeacherDataActionPerformed
+        
+        try {
+            List<TeacherResponse> data = new ArrayList<>();
+
+            List<Teacher> allTeacher = masterService.getAllTeacher();
+
+            for (Teacher teacher : allTeacher) {
+                TeacherResponse response = new TeacherResponse();
+
+                response.setId(String.valueOf(teacher.getId()));
+                response.setName(teacher.getName());
+                response.setBirthplace(teacher.getBirthPlace());
+                response.setBirthdate(teacher.getBirthDate().toString());
+                response.setSubject(String.valueOf(teacher.getTeachingAssignments().size()));
+
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/TeacherReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_reportPanelTeacherDataActionPerformed
+
+    private void reportPanelTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportPanelTransactionActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_reportPanelTransactionActionPerformed
 
-        String name = nameAddField.getText();
-        String username = usernameAddField.getText();
-        String date = dateAddField.getSelectedItem().toString();
-        Integer month = monthAddField.getSelectedIndex();
-        String year = yearAddField.getSelectedItem().toString();
-        String email = emailAddField.getText();
-        String phoneNumber = phoneNumberAddField.getText();
-        String province = provinceAddField.getSelectedItem().toString();
-        String city = cityAddField.getSelectedItem().toString();
-        String district = districtAddField.getSelectedItem().toString();
+    private void reportPanelCourseDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportPanelCourseDataActionPerformed
+        
+        try {
+            List<CourseResponse> data = new ArrayList<>();
 
-        RegisterUserRequest request = new RegisterUserRequest(null, name, username, date, month, year, email,
+            List<Course> allCourse = masterService.findAllCourse();
+
+            for (Course course : allCourse) {
+                CourseResponse response = new CourseResponse();
+
+                response.setIdsubject(String.valueOf(course.getId()));
+                response.setNamesubject(course.getName());
+                response.setDepartment(course.getDepartment().getName());
+                response.setClassroom(course.getClassroom().getName());
+
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/SubjectsReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_reportPanelCourseDataActionPerformed
+
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_reportButtonActionPerformed
+        
+        closeAllPanel();
+        closeAllInternalFrame();
+
+        reportPanel.setVisible(true);
+    }// GEN-LAST:event_reportButtonActionPerformed
+
+    private void transactionTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_transactionTableMouseClicked
+        
+        try {
+            int row = transactionTable.getSelectedRow();
+            id = Integer.parseInt(transactionTable.getValueAt(row, 0).toString());
+            String student = transactionTable.getValueAt(row, 1).toString();
+            String paymentDate = transactionTable.getValueAt(row, 2).toString();
+            String totalPayment = transactionTable.getValueAt(row, 3).toString();
+            
+            // SPPTransaction transaction = masterService.findTransactionById(id);
+            SPPTransaction transaction = masterService.findTransactionWithPaidDuesById(Long.parseUnsignedLong(String.valueOf(id)));
+            List<TransactionResponse> data = new ArrayList<>();
+            
+            List<SPPDue> paidDues = transaction.getPaidDues();
+            String monthPaid = String.valueOf(paidDues.size());
+
+
+            for (SPPDue due : paidDues) {
+                TransactionResponse response = new TransactionResponse();
+
+                response.setMonth(due.getMonth().toString());
+                response.setCost("1000000");
+                
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/sppReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+            parameters.put("student", student);
+            parameters.put("paymentDate", paymentDate);
+            parameters.put("monthPaid", monthPaid);
+            parameters.put("totalPaid1", totalPayment);
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+
+    }// GEN-LAST:event_transactionTableMouseClicked
+
+    private void printCourse1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_printCourse1ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_printCourse1ActionPerformed
+
+
+    private void paySppButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paySppButtonActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) costTable2.getModel();
+
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Belum ada bulan yang dipilih", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<String> selectedMonths = new ArrayList<>();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            selectedMonths.add(model.getValueAt(i, 0).toString()); // format: "Juli 2024"
+        }
+
+        String result = masterService.paySpp(id, selectedMonths); // id = studentId aktif
+
+        if (result != null) {
+            JOptionPane.showMessageDialog(this, result, "Gagal", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Pembayaran berhasil disimpan", "Sukses",
+                    JOptionPane.INFORMATION_MESSAGE);
+            // Clear tabel & refresh combobox
+            model.setRowCount(0);
+            costDetailMonthField.setModel(new DefaultComboBoxModel<>(masterService.getUnpaidMonthsForStudent(id)));
+            costDetailTotalCost.setText("0");
+
+            closeAllInternalFrame();
+            loadCostRecapData();
+        }
+
+    }// GEN-LAST:event_paySppButtonActionPerformed
+
+    private void costDetailAddMonthActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_costDetailAddMonthActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) costTable2.getModel();
+        String selectedMonth = costDetailMonthField.getSelectedItem().toString();
+
+        model.addRow(new Object[] { selectedMonth, 100000 });
+
+        // Hapus dari combobox setelah ditambah ke tabel
+        costDetailMonthField.removeItem(selectedMonth);
+
+        // Hitung ulang total biaya
+        int totalCost = model.getRowCount() * 100000;
+        costDetailTotalCost.setText(String.valueOf(totalCost));
+
+    }// GEN-LAST:event_costDetailAddMonthActionPerformed
+
+    private void costTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_costTable2MouseClicked
+
+        int selectedRow = costTable2.getSelectedRow();
+
+        // Pastikan ada yang dipilih
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) costTable2.getModel();
+
+            // Ambil nama bulan dari kolom pertama
+            String monthToRestore = model.getValueAt(selectedRow, 0).toString();
+
+            // Hapus baris dari tabel
+            model.removeRow(selectedRow);
+            costDetailMonthField.addItem(monthToRestore);
+
+            // Update total
+            int totalCost = model.getRowCount() * 100000;
+            costDetailTotalCost.setText(String.valueOf(totalCost));
+        }
+
+    }// GEN-LAST:event_costTable2MouseClicked
+
+    private void costDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_costDetailExitButtonActionPerformed
+
+        closeAllInternalFrame();
+
+    }// GEN-LAST:event_costDetailExitButtonActionPerformed
+
+    private void costTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_costTableMouseClicked
+
+        closeAllInternalFrame();
+
+        int row = costTable.getSelectedRow();
+        id = Integer.parseInt(costTable.getValueAt(row, 0).toString());
+
+        costDetailStudentName.setText(costTable.getValueAt(row, 1).toString());
+        costDetailDepartmentName.setText(costTable.getValueAt(row, 2).toString());
+
+        String classrooms = costTable.getValueAt(row, 3).toString();
+        String[] split = classrooms.split("/");
+
+        costDetailClassroomName.setText(split[0]);
+        costDetailSectionName.setText(split[1]);
+        costDetailTotalCost.setText("0");
+
+        costDetailMonthField.setModel(new DefaultComboBoxModel<>(masterService.getUnpaidMonthsForStudent(id)));
+
+        costDetail.setVisible(true);
+
+    }// GEN-LAST:event_costTableMouseClicked
+
+    private void costDetailMonthFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_costDetailMonthFieldItemStateChanged
+
+        // Hanya jalankan saat item dipilih (bukan saat deselect)
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            String selectedMonth = evt.getItem().toString();
+
+            // Tambahkan ke tabel
+            DefaultTableModel model = (DefaultTableModel) costTable2.getModel();
+
+            // Cegah duplikasi (opsional)
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (model.getValueAt(i, 0).equals(selectedMonth)) {
+                    return; // sudah ada, jangan ditambah lagi
+                }
+            }
+
+        }
+
+    }// GEN-LAST:event_costDetailMonthFieldItemStateChanged
+
+    private void teacherAddCourseDepartmentListItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_teacherAddCourseDepartmentListItemStateChanged
+
+        String departmentName = teacherAddCourseDepartmentList.getSelectedItem().toString();
+        teacherAddCourseClassroomList
+                .setModel(new DefaultComboBoxModel<>(masterService.getClassroomsByDepartmentName(departmentName)));
+
+        String classroomName = teacherAddCourseClassroomList.getSelectedItem().toString();
+        teacherAddCourseSectionList.setModel(new DefaultComboBoxModel<>(
+                masterService.getSectionsByDepartmentNameAndClassroomName(departmentName, classroomName)));
+
+    }// GEN-LAST:event_teacherAddCourseDepartmentListItemStateChanged
+
+    private void teacherAddCourseClassroomListItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_teacherAddCourseClassroomListItemStateChanged
+
+        String departmentName = teacherAddCourseDepartmentList.getSelectedItem().toString();
+        String classroomName = teacherAddCourseClassroomList.getSelectedItem().toString();
+        teacherAddCourseSectionList.setModel(new DefaultComboBoxModel<>(
+                masterService.getSectionsByDepartmentNameAndClassroomName(departmentName, classroomName)));
+
+    }// GEN-LAST:event_teacherAddCourseClassroomListItemStateChanged
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
+
+        int row = jTable2.getSelectedRow();
+
+        String department = jTable2.getValueAt(row, 0).toString();
+        String classroom = jTable2.getValueAt(row, 1).toString();
+        String course = jTable2.getValueAt(row, 2).toString();
+
+        String section = teacherAddCourseSectionList.getSelectedItem().toString();
+
+        AddTeachingAssignmentRequest request = new AddTeachingAssignmentRequest(id, department, classroom, section,
+                course);
+
+        masterService.addTeachingAssignmentRequest(request);
+
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+        closeAllInternalFrame();
+
+        loadDataTeacher();
+
+    }// GEN-LAST:event_jTable2MouseClicked
+
+    private void studentDetailProvinceFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentDetailProvinceFieldItemStateChanged
+
+        studentDetailCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(studentDetailProvinceField.getSelectedItem().toString())));
+        studentDetailDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentDetailCityField.getSelectedItem().toString())));
+    }// GEN-LAST:event_studentDetailProvinceFieldItemStateChanged
+
+    private void studentDetailCityFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentDetailCityFieldItemStateChanged
+
+        studentDetailDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentDetailCityField.getSelectedItem().toString())));
+
+    }// GEN-LAST:event_studentDetailCityFieldItemStateChanged
+
+    private void teacherAddExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherAddExitButtonActionPerformed
+        teacherAddForm.setVisible(false);
+    }// GEN-LAST:event_teacherAddExitButtonActionPerformed
+
+    private void teacherAddProvinceFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_teacherAddProvinceFieldItemStateChanged
+
+        teacherAddCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(teacherAddProvinceField.getSelectedItem().toString())));
+        teacherAddDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(teacherAddCityField.getSelectedItem().toString())));
+
+    }// GEN-LAST:event_teacherAddProvinceFieldItemStateChanged
+
+    private void teacherAddCityFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_teacherAddCityFieldItemStateChanged
+
+        teacherAddDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(teacherAddCityField.getSelectedItem().toString())));
+
+    }// GEN-LAST:event_teacherAddCityFieldItemStateChanged
+
+    private void teacherAddRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherAddRegisterButtonActionPerformed
+
+        String name = teacherAddNameField.getText();
+        String gender = teacherAddGenderField.getSelectedItem().toString();
+        String username = teacherAddUsernameField.getText();
+        String date = teacherAddDateField.getSelectedItem().toString();
+        Integer month = teacherAddMonthField.getSelectedIndex();
+        String year = teacherAddYearField.getSelectedItem().toString();
+        String email = teacherAddEmailField.getText();
+        String phoneNumber = teacherAddPhoneNumberField.getText();
+        String province = teacherAddProvinceField.getSelectedItem().toString();
+        String city = teacherAddCityField.getSelectedItem().toString();
+        String district = teacherAddDistrictField.getSelectedItem().toString();
+
+        AddTeacherRequest request = new AddTeacherRequest(name, gender, username, date, month, year,
+                email,
                 phoneNumber,
                 province, city, district);
 
         try {
-            String result = userService.addUser(role, request);
+            String result = masterService.registerTeacher(request);
+
             if (result != null) {
                 JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
-                clearAddUserForm();
+                closeAllInternalFrame();
 
-                Map<String, Runnable> roleActions = Map.of(
-                        "student", this::loadDataStudent,
-                        "teacher", this::loadDataTeacher);
-
-                roleActions.getOrDefault(role, () -> {
-                }).run();
+                clearAddTeacherForm();
+                loadDataTeacher();
 
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }// GEN-LAST:event_addUserButtonMouseClicked
 
-    private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_studentTableMouseClicked
-        // TODO add your handling code here:
+    }// GEN-LAST:event_teacherAddRegisterButtonActionPerformed
 
-        int row = studentTable.getSelectedRow();
-        String username = studentTable.getModel().getValueAt(row, 1).toString();
+    private void teacherDetailProvinceFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_teacherDetailProvinceFieldItemStateChanged
 
-        Student student = userService.findStudentByUsername(username);
+        teacherDetailCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(teacherDetailProvinceField.getSelectedItem().toString())));
+        teacherDetailDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(teacherDetailCityField.getSelectedItem().toString())));
 
-        id = student.getId();
-        nameDetailField.setText(student.getName());
-        usernameDetailField.setText(student.getUsername());
-        emailDetailField.setText(student.getEmail());
-        phoneNumberDetailField.setText(student.getPhoneNumber());
+    }// GEN-LAST:event_teacherDetailProvinceFieldItemStateChanged
 
-        LocalDate date = student.getBirthDate();
+    private void teacherDetailCityFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_teacherDetailCityFieldItemStateChanged
 
-        dateDetailField.setSelectedIndex(date.getDayOfMonth() - 1);
-        monthDetailField.setSelectedIndex(date.getMonthValue() - 1);
-        yearDetailField.setSelectedItem(date.getYear());
+        teacherDetailDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(teacherDetailCityField.getSelectedItem().toString())));
 
-        String[] birthPlace = student.getBirthPlace().split(", ");
+    }// GEN-LAST:event_teacherDetailCityFieldItemStateChanged
 
-        String province = birthPlace[2];
-        String city = birthPlace[1];
-        String district = birthPlace[0];
+    private void teacherDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherDetailExitButtonActionPerformed
 
-        updateRegionDetailComboBoxes(province, city, district);
+        teacherDetailForm.setVisible(false);
+        teacherAddCourse.setVisible(false);
+    }// GEN-LAST:event_teacherDetailExitButtonActionPerformed
 
-        userDetailForm.setVisible(true);
+    private void teacherDetailSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherDetailSaveButtonActionPerformed
+
+        String name = teacherDetailNameField.getText();
+        String username = teacherDetailUsernameField.getText();
+        String gender = teacherDetailGenderField.getSelectedItem().toString();
+        String date = teacherDetailDateField.getSelectedItem().toString();
+        Integer month = teacherDetailMonthField.getSelectedIndex();
+        String year = teacherDetailYearField.getSelectedItem().toString();
+        String email = teacherDetailEmailField.getText();
+        String phoneNumber = teacherDetailPhoneNumberField.getText();
+        String province = teacherDetailProvinceField.getSelectedItem().toString();
+        String city = teacherDetailCityField.getSelectedItem().toString();
+        String district = teacherDetailDistrictField.getSelectedItem().toString();
+
+        UpdateTeacherRequest request = new UpdateTeacherRequest(id, name, gender, username, date, month, year,
+                email, phoneNumber,
+                province, city, district);
 
         try {
-            userDetailForm.setSelected(true);
-        } catch (PropertyVetoException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            String result = masterService.editTeacher(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil diedit");
+
+                teacherDetailForm.setVisible(false);
+                loadDataTeacher();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
-    }// GEN-LAST:event_studentTableMouseClicked
+    }// GEN-LAST:event_teacherDetailSaveButtonActionPerformed
 
-    private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_deleteButtonMouseClicked
-        // TODO add your handling code here:
+    private void teacherDetailDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherDetailDeleteButtonActionPerformed
+
         int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Apakah Anda yakin ingin menghapus data ini?",
@@ -666,219 +2102,1036 @@ public class Dashboard extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                userService.deleteUserById(role, id);
+                masterService.deleteTeacherById(id);
                 JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
-                userDetailForm.setVisible(false);
+                teacherDetailForm.setVisible(false);
 
-                Map<String, Runnable> roleActions = Map.of(
-                        "student", this::loadDataStudent,
-                        "teacher", this::loadDataTeacher);
-
-                roleActions.getOrDefault(role, () -> {
-                }).run();
+                loadDataTeacher();
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }// GEN-LAST:event_deleteButtonMouseClicked
 
-    private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_saveButtonMouseClicked
-        // TODO add your handling code here:
-        String name = nameDetailField.getText();
-        String username = usernameDetailField.getText();
-        String date = dateDetailField.getSelectedItem().toString();
-        Integer month = monthDetailField.getSelectedIndex();
-        String year = yearDetailField.getSelectedItem().toString();
-        String email = emailDetailField.getText();
-        String phoneNumber = phoneNumberDetailField.getText();
-        String province = provinceDetailField.getSelectedItem().toString();
-        String city = cityDetailField.getSelectedItem().toString();
-        String district = districtDetailField.getSelectedItem().toString();
+    }// GEN-LAST:event_teacherDetailDeleteButtonActionPerformed
 
-        RegisterUserRequest request = new RegisterUserRequest(id, name, username, date, month, year, email, phoneNumber,
-                province, city, district);
+    private void teacherDetailAddCourseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherDetailAddCourseActionPerformed
+
+        log.info("Teacher Add Course {}", teacherAddCourse == null);
+        teacherAddCourse.setVisible(true);
+        teacherAddCourse.toFront();
+
+        loadAddCourseTeacherData();
+
+    }// GEN-LAST:event_teacherDetailAddCourseActionPerformed
+
+    private void teacherAddCourseExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherAddCourseExitButtonActionPerformed
+        teacherAddCourse.setVisible(false);
+    }// GEN-LAST:event_teacherAddCourseExitButtonActionPerformed
+
+    private void studentPanelDepartmentListItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentPanelDepartmentListItemStateChanged
+
+        searchStudentForm.setText("");
+
+        String departmentName = studentPanelDepartmentList.getSelectedItem().toString();
+        String classroomName = studentPanelClassroomList.getSelectedItem().toString();
+        String sectionName = studentPanelSectionList.getSelectedItem().toString();
+
+        studentPanelClassroomList.setModel(
+                new DefaultComboBoxModel<>(masterService.getAllDistinctClassroomByDepartmentName(departmentName)));
+
+        studentPanelSectionList.setModel(
+                new DefaultComboBoxModel<>(masterService.getAllSectionByDepartmentNameAndClassroomName(departmentName,
+                        classroomName)));
+
+        loadDataStudent(departmentName, classroomName, sectionName);
+
+    }// GEN-LAST:event_studentPanelDepartmentListItemStateChanged
+
+    private void studentPanelClassroomListItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentPanelClassroomListItemStateChanged
+
+        searchStudentForm.setText("");
+
+        String departmentName = studentPanelDepartmentList.getSelectedItem().toString();
+        String classroomName = studentPanelClassroomList.getSelectedItem().toString();
+        String sectionName = studentPanelSectionList.getSelectedItem().toString();
+
+        studentPanelSectionList.setModel(
+                new DefaultComboBoxModel<>(masterService.getAllSectionByDepartmentNameAndClassroomName(departmentName,
+                        classroomName)));
+
+        loadDataStudent(departmentName, classroomName, sectionName);
+
+    }// GEN-LAST:event_studentPanelClassroomListItemStateChanged
+
+    private void studentPanelSectionListItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentPanelSectionListItemStateChanged
+
+        searchStudentForm.setText("");
+
+        String departmentName = studentPanelDepartmentList.getSelectedItem().toString();
+        String classroomName = studentPanelClassroomList.getSelectedItem().toString();
+        String sectionName = studentPanelSectionList.getSelectedItem().toString();
+
+        loadDataStudent(departmentName, classroomName, sectionName);
+    }// GEN-LAST:event_studentPanelSectionListItemStateChanged
+
+    private void classroomAddExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_classroomAddExitButtonActionPerformed
+
+        classroomAddForm.setVisible(false);
+    }// GEN-LAST:event_classroomAddExitButtonActionPerformed
+
+    private void classroomAddRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_classroomAddRegisterButtonActionPerformed
+
+        String department = classroomAddDepartmentField.getSelectedItem().toString();
+        String classroom = classroomAddClassroomField.getSelectedItem().toString();
+
+        AddClassRequest request = new AddClassRequest(department, classroom);
 
         try {
-            String result = userService.editUser(role, request);
+            String result = masterService.addClass(request);
             if (result != null) {
                 JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Data berhasil diedit");
-                clearDetailUserForm();
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+                closeAllInternalFrame();
 
-                Map<String, Runnable> roleActions = Map.of(
-                        "student", this::loadDataStudent,
-                        "teacher", this::loadDataTeacher);
-
-                roleActions.getOrDefault(role, () -> {
-                }).run();
+                loadClassroomData();
 
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }// GEN-LAST:event_saveButtonMouseClicked
 
-    private void exitAddUserButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_exitAddUserButtonMouseClicked
-        // TODO add your handling code here:
-        addForm.setVisible(false);
-    }// GEN-LAST:event_exitAddUserButtonMouseClicked
+    }// GEN-LAST:event_classroomAddRegisterButtonActionPerformed
 
-    private void provinceDetailFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_provinceDetailFieldItemStateChanged
-        // TODO add your handling code here:
-        cityDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getRegencies(provinceDetailField)));
-        districtDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts(cityDetailField)));
-    }// GEN-LAST:event_provinceDetailFieldItemStateChanged
+    private void courseAddExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseAddExitButtonActionPerformed
 
-    private void cityDetailFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_cityDetailFieldItemStateChanged
-        // TODO add your handling code here:
-        districtDetailField.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts(cityDetailField)));
-    }// GEN-LAST:event_cityDetailFieldItemStateChanged
+        courseAddForm.setVisible(false);
+    }// GEN-LAST:event_courseAddExitButtonActionPerformed
 
-    private void exitUserDetailButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_exitUserDetailButtonMouseClicked
-        // TODO add your handling code here:
-        userDetailForm.setVisible(false);
-    }// GEN-LAST:event_exitUserDetailButtonMouseClicked
+    private void courseAddRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseAddRegisterButtonActionPerformed
 
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_backMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-    }// GEN-LAST:event_backMouseClicked
+        String department = courseAddDepartmentField.getSelectedItem().toString();
+        String classroom = courseAddClassroomField.getSelectedItem().toString();
 
-    private void costButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_costButtonMouseClicked
-        // TODO add your handling code here:
-        studentPanel.setVisible(false);
-        teacherPanel.setVisible(false);
-        classPanel.setVisible(false);
-        costPanel.setVisible(true);
+        String courseName = courseAddNameField.getText();
 
-        addForm.setVisible(false);
-        userDetailForm.setVisible(false);
-    }// GEN-LAST:event_costButtonMouseClicked
-
-    private void classButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_classButtonMouseClicked
-        // TODO add your handling code here:
-        studentPanel.setVisible(false);
-        teacherPanel.setVisible(false);
-        classPanel.setVisible(true);
-        costPanel.setVisible(false);
-
-        addForm.setVisible(false);
-        userDetailForm.setVisible(false);
-    }// GEN-LAST:event_classButtonMouseClicked
-
-    private void teacherButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherButtonMouseClicked
-        // TODO add your handling code here:
-        role = "teacher";
-
-        studentPanel.setVisible(false);
-        teacherPanel.setVisible(true);
-        classPanel.setVisible(false);
-        costPanel.setVisible(false);
-
-        addForm.setVisible(false);
-        userDetailForm.setVisible(false);
-
-        loadDataTeacher();
-    }// GEN-LAST:event_teacherButtonMouseClicked
-
-    private void studentButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_studentButtonMouseClicked
-        // TODO add your handling code here:
-        role = "student";
-
-        studentPanel.setVisible(true);
-        teacherPanel.setVisible(false);
-        classPanel.setVisible(false);
-        costPanel.setVisible(false);
-
-        addForm.setVisible(false);
-        userDetailForm.setVisible(false);
-
-        loadDataStudent();
-    }// GEN-LAST:event_studentButtonMouseClicked
-
-    private void addStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addStudentButtonMouseClicked
-        // TODO add your handling code here:
-        addForm.setVisible(true);
+        AddCourseRequest request = new AddCourseRequest(department, classroom, courseName);
 
         try {
-            addForm.setSelected(true); // Fokuskan
+            String result = masterService.addCourse(request);
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+                closeAllInternalFrame();
+
+                loadCourseData();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_courseAddRegisterButtonActionPerformed
+
+    private void courseDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseDetailExitButtonActionPerformed
+        courseDetailForm.setVisible(false);
+    }// GEN-LAST:event_courseDetailExitButtonActionPerformed
+
+    private void courseDetailEditButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseDetailEditButtonActionPerformed
+
+        String department = courseDetailDepatmentField.getText();
+        String classroom = courseDetailClassroomField.getText();
+        String courseName = courseDetailNameField.getText();
+
+        UpdateCourseRequest request = new UpdateCourseRequest(id, courseName, department, classroom);
+
+        try {
+            String result = masterService.updateCourse(request);
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+                closeAllInternalFrame();
+
+                loadCourseData();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_courseDetailEditButtonActionPerformed
+
+    private void courseDetailDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseDetailDeleteButtonActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                masterService.deleteCourseById(id);
+
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+                courseDetailForm.setVisible(false);
+                loadCourseData();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }// GEN-LAST:event_courseDetailDeleteButtonActionPerformed
+
+    private void departmentDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_departmentDetailExitButtonActionPerformed
+        departmentDetail.setVisible(false);
+    }// GEN-LAST:event_departmentDetailExitButtonActionPerformed
+
+    private void departmentDetailSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_departmentDetailSaveButtonActionPerformed
+
+        String departmentName = departmentDetailDepartmentName.getText();
+
+        UpdateDepartmentRequest request = new UpdateDepartmentRequest(id, departmentName);
+
+        try {
+            String result = masterService.updateDepartment(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil diedit");
+
+                studentDetailForm.setVisible(false);
+                loadClassroomData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_departmentDetailSaveButtonActionPerformed
+
+    private void departmentDetailDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_departmentDetailDeleteButtonActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                String errorMessage = masterService.deleteDepartmentById(id);
+
+                if (errorMessage != null) {
+                    JOptionPane.showMessageDialog(this, errorMessage, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+
+                    departmentDetail.setVisible(false);
+                    loadClassroomData();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        updateAllDepartmentComboBox();
+    }// GEN-LAST:event_departmentDetailDeleteButtonActionPerformed
+
+    private void studentDetailSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentDetailSaveButtonActionPerformed
+
+        String name = studentDetailNameField.getText();
+        String gender = studentDetailGenderField.getSelectedItem().toString();
+        String username = studentDetailUsernameField.getText();
+        String date = studentDetailDateField.getSelectedItem().toString();
+        Integer month = studentDetailMonthField.getSelectedIndex();
+        String year = studentDetailYearField.getSelectedItem().toString();
+        String email = studentDetailEmailField.getText();
+        String phoneNumber = studentDetailPhoneNumberField.getText();
+        String province = studentDetailProvinceField.getSelectedItem().toString();
+        String city = studentDetailCityField.getSelectedItem().toString();
+        String district = studentDetailDistrictField.getSelectedItem().toString();
+
+        String department = studentDetailDepartmentField.getSelectedItem().toString();
+        String classroom = studentDetailClassField.getSelectedItem().toString();
+        String section = studentDetailSectionField.getSelectedItem().toString();
+
+        EditStudentRequest request = new EditStudentRequest(id, name, gender, username, date, month, year,
+                email, phoneNumber,
+                province, city, district, department, classroom, section);
+
+        try {
+            String result = masterService.editStudent(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil diedit");
+
+                studentDetailForm.setVisible(false);
+                loadDataStudent();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_studentDetailSaveButtonActionPerformed
+
+    private void studentDetailDepartmentFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentDetailDepartmentFieldItemStateChanged
+
+        String departmentName = studentDetailDepartmentField.getSelectedItem().toString();
+        studentDetailClassField
+                .setModel(new DefaultComboBoxModel<>(masterService.getClassroomsByDepartmentName(departmentName)));
+
+        String classroomName = studentDetailClassField.getSelectedItem().toString();
+        studentDetailSectionField
+                .setModel(new DefaultComboBoxModel<>(
+                        masterService.getSectionsByDepartmentNameAndClassroomName(departmentName, classroomName)));
+
+    }// GEN-LAST:event_studentDetailDepartmentFieldItemStateChanged
+
+    private void studentDetailClassFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentDetailClassFieldItemStateChanged
+
+        String departmentName = studentDetailDepartmentField.getSelectedItem().toString();
+        String classroomName = studentDetailClassField.getSelectedItem().toString();
+        studentDetailSectionField
+                .setModel(new DefaultComboBoxModel<>(
+                        masterService.getAllSectionByDepartmentNameAndClassroomName(departmentName, classroomName)));
+
+    }// GEN-LAST:event_studentDetailClassFieldItemStateChanged
+
+    private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentButtonActionPerformed
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadDataStudent();
+        studentPanel.setVisible(true);
+    }// GEN-LAST:event_studentButtonActionPerformed
+
+    private void teacherButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherButtonActionPerformed
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadDataTeacher();
+        teacherPanel.setVisible(true);
+
+    }// GEN-LAST:event_teacherButtonActionPerformed
+
+    private void classButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_classButtonActionPerformed
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadClassroomData();
+        classroomPanel.setVisible(true);
+
+    }// GEN-LAST:event_classButtonActionPerformed
+
+    private void courseButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseButtonActionPerformed
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadCourseData();
+        coursePanel.setVisible(true);
+
+    }// GEN-LAST:event_courseButtonActionPerformed
+
+    private void costButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_costButtonActionPerformed
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadCostRecapData();
+        costPanel.setVisible(true);
+
+    }// GEN-LAST:event_costButtonActionPerformed
+
+    private void transactionButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_transactionButtonActionPerformed
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadTransactionData();
+        transactionPanel.setVisible(true);
+
+    }// GEN-LAST:event_transactionButtonActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_backActionPerformed
+
+        this.setVisible(false);
+
+    }// GEN-LAST:event_backActionPerformed
+
+    private void studentAddExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentAddExitButtonActionPerformed
+
+        studentAddForm.setVisible(false);
+
+    }// GEN-LAST:event_studentAddExitButtonActionPerformed
+
+    private void studentAddRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentAddRegisterButtonActionPerformed
+
+        String name = studentAddNameField.getText();
+        String gender = studentAddGenderField.getSelectedItem().toString();
+        String username = studentAddUsernameField.getText();
+        String date = studentAddDateField.getSelectedItem().toString();
+        Integer month = studentAddMonthField.getSelectedIndex();
+        String year = studentAddYearField.getSelectedItem().toString();
+        String email = studentAddEmailField.getText();
+        String phoneNumber = studentAddPhoneNumberField.getText();
+        String province = studentAddProvinceField.getSelectedItem().toString();
+        String city = studentAddCityField.getSelectedItem().toString();
+        String district = studentAddDistrictField.getSelectedItem().toString();
+        String department = studentAddDepartmentField.getSelectedItem().toString();
+
+        AddStudentRequest request = new AddStudentRequest(
+                null, name, gender, username, date, month, year,
+                email, phoneNumber, province, city, district, department);
+
+        try {
+            String result = masterService.addStudent(request);
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+                clearAddStudentForm();
+
+                studentAddForm.setVisible(false);
+                loadDataStudent();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_studentAddRegisterButtonActionPerformed
+
+    private void studentAddProvinceFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentAddProvinceFieldItemStateChanged
+
+        studentAddCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(studentAddProvinceField.getSelectedItem().toString())));
+        studentAddDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentAddCityField.getSelectedItem().toString())));
+
+    }// GEN-LAST:event_studentAddProvinceFieldItemStateChanged
+
+    private void studentAddCityFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_studentAddCityFieldItemStateChanged
+
+        studentAddDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentAddCityField.getSelectedItem().toString())));
+
+    }// GEN-LAST:event_studentAddCityFieldItemStateChanged
+
+    private void departmentAddExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_departmentAddExitButtonActionPerformed
+
+        departmentAddForm.setVisible(false);
+
+    }// GEN-LAST:event_departmentAddExitButtonActionPerformed
+
+    private void departmentAddRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_departmentAddRegisterButtonActionPerformed
+
+        String departmentName = departmentAddDepartmentField.getText();
+        String codeName = departmentAddCodeField.getText();
+
+        AddDepartmentRequest request = new AddDepartmentRequest(departmentName, codeName);
+
+        try {
+            String result = masterService.addDepartment(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+
+                departmentAddDepartmentField.setText("");
+                departmentAddCodeField.setText("");
+
+                departmentAddForm.setVisible(false);
+                loadClassroomData();
+
+                updateAllDepartmentComboBox();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_departmentAddRegisterButtonActionPerformed
+
+    private void studentDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentDetailExitButtonActionPerformed
+
+        studentDetailForm.setVisible(false);
+
+    }// GEN-LAST:event_studentDetailExitButtonActionPerformed
+
+    private void studentDetailDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentDetailDeleteButtonActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                masterService.deleteStudentById(id);
+
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+
+                studentDetailForm.setVisible(false);
+                loadDataStudent();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+
+        updateAllDepartmentComboBox();
+
+    }// GEN-LAST:event_studentDetailDeleteButtonActionPerformed
+
+    private void printTeacherActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_printTeacherActionPerformed
+
+        try {
+            List<TeacherResponse> data = new ArrayList<>();
+
+            DefaultTableModel model = (DefaultTableModel) teacherTable.getModel();
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+
+                TeacherResponse response = new TeacherResponse();
+
+                response.setId(model.getValueAt(i, 0).toString());
+                response.setName(model.getValueAt(i, 1).toString());
+                response.setBirthplace(model.getValueAt(i, 2).toString());
+                response.setBirthdate(model.getValueAt(i, 3).toString());
+                response.setSubject(model.getValueAt(i, 4).toString());
+
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/TeacherReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }// GEN-LAST:event_printTeacherActionPerformed
+
+    private void printCourseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_printCourseActionPerformed
+
+        try {
+            List<CourseResponse> data = new ArrayList<>();
+
+            DefaultTableModel model = (DefaultTableModel) courseTable.getModel();
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+
+                CourseResponse response = new CourseResponse();
+
+                response.setIdsubject(model.getValueAt(i, 0).toString());
+                response.setNamesubject(model.getValueAt(i, 1).toString());
+                response.setClassroom(model.getValueAt(i, 2).toString());
+                response.setDepartment(model.getValueAt(i, 3).toString());
+
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/SubjectsReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }// GEN-LAST:event_printCourseActionPerformed
+
+    private void departmentTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_departmentTableMouseClicked
+
+        closeAllInternalFrame();
+
+        int row = departmentTable.getSelectedRow();
+        id = Integer.parseInt(departmentTable.getValueAt(row, 0).toString());
+
+        Department department = masterService.findDepartmentById(id);
+
+        departmentDetailDepartmentName.setText(department.getName());
+        departmentDetailTotalClassroom.setText(String.valueOf(department.getClassrooms().size()));
+
+        departmentDetail.setVisible(true);
+
+    }// GEN-LAST:event_departmentTableMouseClicked
+
+    private void classroomTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_classroomTableMouseClicked
+
+        closeAllInternalFrame();
+
+        int row = classroomTable.getSelectedRow();
+        id = Integer.parseInt(classroomTable.getValueAt(row, 0).toString());
+
+        Classroom classroom = masterService.findClassroomById(id);
+
+        classroomDetailDepartmentName.setText(classroom.getDepartment().getName());
+        classroomDetailClassroomName.setSelectedItem(classroom.getName());
+        classroomDetailTotalSection.setText(String.valueOf(classroom.getSections().size()));
+
+        classroomDetail.setVisible(true);
+    }// GEN-LAST:event_classroomTableMouseClicked
+
+    private void sectionTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_sectionTableMouseClicked
+
+        closeAllInternalFrame();
+
+        int row = sectionTable.getSelectedRow();
+        id = Integer.parseInt(sectionTable.getValueAt(row, 0).toString());
+
+        Section section = masterService.findSectionById(id);
+
+        sectionDetailDepartmentName.setText(section.getClassroom().getDepartment().getName());
+        sectionDetailClassroomName.setText(section.getClassroom().getName());
+        sectionDetailSectionName.setText(section.getName());
+        sectionDetailTotalStudent.setText(String.valueOf(section.getStudents().size()));
+
+        sectionDetail.setVisible(true);
+
+    }// GEN-LAST:event_sectionTableMouseClicked
+
+    private void sectionDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sectionDetailExitButtonActionPerformed
+
+        sectionDetail.setVisible(false);
+
+    }// GEN-LAST:event_sectionDetailExitButtonActionPerformed
+
+    private void classroomDetailExitButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_classroomDetailExitButtonActionPerformed
+
+        classroomDetail.setVisible(false);
+
+    }// GEN-LAST:event_classroomDetailExitButtonActionPerformed
+
+    private void sectionDetailSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sectionDetailSaveButtonActionPerformed
+
+        UpdateSectionRequest request = new UpdateSectionRequest(id, sectionDetailSectionName.getText());
+
+        try {
+            String result = masterService.updateSection(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil diedit");
+
+                sectionDetail.setVisible(false);
+                loadClassroomData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_sectionDetailSaveButtonActionPerformed
+
+    private void sectionDetailDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sectionDetailDeleteButtonActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                String errorMessage = masterService.deleteSectionById(id);
+
+                if (errorMessage != null) {
+                    JOptionPane.showMessageDialog(this, errorMessage, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+
+                    sectionDetail.setVisible(false);
+                    loadClassroomData();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }// GEN-LAST:event_sectionDetailDeleteButtonActionPerformed
+
+    private void classroomDetailSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_classroomDetailSaveButtonActionPerformed
+
+        UpdateClassroomRequest request = new UpdateClassroomRequest(id,
+                classroomDetailClassroomName.getSelectedItem().toString());
+
+        try {
+            String result = masterService.updateClassroom(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil diedit");
+
+                classroomDetail.setVisible(false);
+                loadClassroomData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_classroomDetailSaveButtonActionPerformed
+
+    private void classroomDetailDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_classroomDetailDeleteButtonActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                String errorMessage = masterService.deleteClassroomById(id);
+
+                if (errorMessage != null) {
+                    JOptionPane.showMessageDialog(this, errorMessage, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+
+                    classroomDetail.setVisible(false);
+                    loadClassroomData();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }// GEN-LAST:event_classroomDetailDeleteButtonActionPerformed
+
+    private void printTableStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        try {
+            List<StudentResponse> data = new ArrayList<>();
+
+            DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+
+                StudentResponse response = new StudentResponse();
+
+                response.setId(model.getValueAt(i, 0).toString());
+                response.setName(model.getValueAt(i, 1).toString());
+                response.setGender(model.getValueAt(i, 2).toString());
+                response.setBirthplace(model.getValueAt(i, 3).toString());
+                response.setBirthdate(model.getValueAt(i, 4).toString());
+                response.setDepartment(model.getValueAt(i, 5).toString());
+                response.setClassroom(model.getValueAt(i, 6).toString());
+
+                data.add(response);
+            }
+
+            String reportPath = "src/main/resources/assets/report/StudentReport.jasper"; // Ganti dengan path milikmu
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+
+            Map<String, Object> parameters = new HashMap<>(); // kosongkan jika tidak perlu
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }// GEN-LAST:event_printTableStudentButtonActionPerformed
+
+    private void addCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addCourseButtonActionPerformed
+
+        closeAllInternalFrame();
+
+        courseAddForm.setVisible(true);
+
+    }// GEN-LAST:event_addCourseButtonActionPerformed
+
+    private void courseTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_courseTableMouseClicked
+
+        int row = courseTable.getSelectedRow();
+        id = Integer.parseInt(courseTable.getModel().getValueAt(row, 0).toString());
+
+        Course course = masterService.findCourseById(id);
+
+        closeAllInternalFrame();
+        courseDetailForm.setVisible(true);
+
+        courseDetailDepatmentField.setText(course.getDepartment().getName());
+        courseDetailClassroomField.setText(course.getClassroom().getName());
+        courseDetailNameField.setText(course.getName());
+
+    }// GEN-LAST:event_courseTableMouseClicked
+
+    private void courseEditButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseEditButtonActionPerformed
+
+        UpdateCourseRequest request = new UpdateCourseRequest();
+
+        request.setId(id);
+
+        request.setName(courseDetailNameField.getText());
+
+        try {
+            String result = masterService.updateCourse(request);
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+
+                closeAllInternalFrame();
+                courseAddNameField.setText("");
+                loadCourseData();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_courseEditButtonActionPerformed
+
+    private void courseDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_courseDeleteButtonActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                masterService.deleteCourseById(id);
+
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+                courseDetailForm.setVisible(false);
+                loadCourseData();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }// GEN-LAST:event_courseDeleteButtonActionPerformed
+
+    public void generateComponents() {
+        initComponents();
+
+        studentPanelDepartmentList.setModel(new DefaultComboBoxModel<>(masterService.getAllDepartment()));
+        studentPanelClassroomList.setModel(new DefaultComboBoxModel<>(masterService.getAllDistinctClassroom()));
+        studentPanelSectionList.setModel(new DefaultComboBoxModel<>(masterService.getAllDistinctSection()));
+
+        studentAddDateField.setModel(new DefaultComboBoxModel<>(masterService.getDates()));
+        studentAddMonthField.setModel(new DefaultComboBoxModel<>(masterService.getMonths()));
+        studentAddYearField.setModel(new DefaultComboBoxModel<>(masterService.getStudentYears()));
+        studentAddProvinceField.setModel(new DefaultComboBoxModel<>(masterService.getProvinces()));
+        studentAddCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(studentAddProvinceField.getSelectedItem().toString())));
+        studentAddDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentAddCityField.getSelectedItem().toString())));
+        studentAddDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+
+        studentDetailDateField.setModel(new DefaultComboBoxModel<>(masterService.getDates()));
+        studentDetailMonthField.setModel(new DefaultComboBoxModel<>(masterService.getMonths()));
+        studentDetailYearField.setModel(new DefaultComboBoxModel<>(masterService.getStudentYears()));
+        studentDetailProvinceField.setModel(new DefaultComboBoxModel<>(masterService.getProvinces()));
+        studentDetailCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(studentDetailProvinceField.getSelectedItem().toString())));
+        studentDetailDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentDetailCityField.getSelectedItem().toString())));
+        studentDetailDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+        studentDetailClassField.setModel(new DefaultComboBoxModel<>(masterService.getDistinctClassroom()));
+        studentDetailSectionField.setModel(new DefaultComboBoxModel<>(masterService.getDistinctSection()));
+
+        classroomAddDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+
+        courseAddDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+
+        teacherAddDateField.setModel(new DefaultComboBoxModel<>(masterService.getDates()));
+        teacherAddMonthField.setModel(new DefaultComboBoxModel<>(masterService.getMonths()));
+        teacherAddYearField.setModel(new DefaultComboBoxModel<>(masterService.getTeacherYears()));
+        teacherAddProvinceField.setModel(new DefaultComboBoxModel<>(masterService.getProvinces()));
+        teacherAddCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(studentDetailProvinceField.getSelectedItem().toString())));
+        teacherAddDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(studentDetailCityField.getSelectedItem().toString())));
+
+        teacherDetailDateField.setModel(new DefaultComboBoxModel<>(masterService.getDates()));
+        teacherDetailMonthField.setModel(new DefaultComboBoxModel<>(masterService.getMonths()));
+        teacherDetailYearField.setModel(new DefaultComboBoxModel<>(masterService.getTeacherYears()));
+        teacherDetailProvinceField.setModel(new DefaultComboBoxModel<>(masterService.getProvinces()));
+        teacherDetailCityField.setModel(new DefaultComboBoxModel<>(
+                masterService.getRegenciesByProvinceName(teacherDetailProvinceField.getSelectedItem().toString())));
+        teacherDetailDistrictField.setModel(new DefaultComboBoxModel<>(
+                masterService.getDistrictsByRegencyName(teacherDetailCityField.getSelectedItem().toString())));
+
+        coursePanelDepartmentList.setModel(new DefaultComboBoxModel<>(masterService.getDepartmentForComboBox()));
+        coursePanelClassroomList.setModel(new DefaultComboBoxModel<>(masterService.getAllDistinctClassroom()));
+
+        teacherAddCourseDepartmentList.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+        teacherAddCourseClassroomList.setModel(new DefaultComboBoxModel<>(masterService.getDistinctClassroom()));
+        teacherAddCourseSectionList.setModel(new DefaultComboBoxModel<>(masterService.getDistinctSection()));
+    }
+
+    private void addClassButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addClassButtonMouseClicked
+
+        String major = classroomAddDepartmentField.getSelectedItem().toString();
+        String classroom = classroomAddClassroomField.getSelectedItem().toString();
+
+        AddClassRequest request = new AddClassRequest(major, classroom);
+
+        try {
+            String errorMessage = masterService.addClass(request);
+
+            if (errorMessage != null) {
+                JOptionPane.showMessageDialog(this, errorMessage, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+
+                closeAllInternalFrame();
+                loadClassroomData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }// GEN-LAST:event_addClassButtonMouseClicked
+
+    private void studentButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_studentButtonMouseClicked
+
+        closeAllInternalFrame();
+        loadDataStudent();
+
+        closeAllPanel();
+
+        studentPanel.setVisible(true);
+
+    }// GEN-LAST:event_studentButtonMouseClicked
+
+    // show add form student
+    private void addStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addStudentButtonMouseClicked
+
+        closeAllInternalFrame();
+
+        studentAddForm.setVisible(true);
+
+        try {
+            studentAddForm.setSelected(true); // Fokuskan
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }// GEN-LAST:event_addStudentButtonMouseClicked
 
-    private void provinceAddFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_provinceAddFieldItemStateChanged
-        // TODO add your handling code here:
-        cityAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getRegencies(provinceAddField)));
-        districtAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts(cityAddField)));
-    }// GEN-LAST:event_provinceAddFieldItemStateChanged
+    // add student by staff
+    private void studentAddButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_studentAddButtonMouseClicked
 
-    private void cityAddFieldItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_cityAddFieldItemStateChanged
-        // TODO add your handling code here:
-        districtAddField.setModel(new javax.swing.DefaultComboBoxModel<>(getDistricts(cityAddField)));
+    }// GEN-LAST:event_studentAddButtonMouseClicked
 
-    }// GEN-LAST:event_cityAddFieldItemStateChanged
+    // delete student by staff
+    private void studentDeleteButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_studentDeleteButtonMouseClicked
 
-    public void loadDataStudent() {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus data ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        Object header[] = { "Nama", "Username", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Kelas",
-                "Jurusan" };
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                masterService.deleteStudentById(id);
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus data");
+                studentDetailForm.setVisible(false);
+                loadDataStudent();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }// GEN-LAST:event_studentDeleteButtonMouseClicked
+
+    // live search student
+    private void searchStudentFormKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_searchStudentFormKeyReleased
+
+        studentPanelDepartmentList.setSelectedIndex(0);
+        studentPanelClassroomList.setSelectedIndex(0);
+        studentPanelSectionList.setSelectedIndex(0);
+
+        List<Student> searchUsers = masterService.searchStudents(searchStudentForm.getText());
+
+        loadDataStudent(searchUsers);
+
+    }// GEN-LAST:event_searchStudentFormKeyReleased
+
+    protected void loadDataStudent() {
+
+        Object header[] = { "NPM", "Nama", "Jenis Kelamin", "Tempat lahir", "Tanggal lahir", "Jurusan", "Kelas" };
         DefaultTableModel data = new DefaultTableModel(null, header);
 
-        List<Student> all = userService.getAllStudent();
+        List<Student> all = masterService.findStudents();
 
         studentTable.setModel(data);
 
         for (Student student : all) {
-
             String[] city = student.getBirthPlace().split(", ");
 
-            data.addRow(new Object[] {
-                    student.getName(),
-                    student.getUsername(),
-                    student.getEmail(),
-                    student.getPhoneNumber(),
-                    city[1],
-                    student.getBirthDate(),
-                    " - ",
-                    "  - - - "
-            });
-        }
-    }
-
-    public void loadDataTeacher() {
-
-        Object header[] = {"Nama", "Username", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Status", "Bidang studi"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-
-        List<Teacher> all = userService.getAllTeacher();
-
-        teacherTable.setModel(data);
-
-        for (Teacher student : all) {
-
-            String[] city = student.getBirthPlace().split(", ");
+            String departmentName = student.getDepartment().getName();
+            String classroomName = student.getClassroom().getName() + "/" + student.getSection().getName();
 
             data.addRow(new Object[] {
+                    student.getId(),
                     student.getName(),
-                    student.getUsername(),
-                    student.getEmail(),
-                    student.getPhoneNumber(),
+                    student.getGender(),
                     city[1],
                     student.getBirthDate(),
-                    " - ",
-                    "  - - - "
+                    departmentName,
+                    classroomName
             });
         }
+
     }
 
-    public void loadDataStudent(List<Student> students) {
+    private void loadDataStudent(List<Student> students) {
 
-        Object header[] = { "Nama", "Username", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Kelas",
-                "Jurusan" };
+        Object header[] = { "NPM", "Nama", "Jenis Kelamin", "Tempat lahir", "Tanggal lahir", "Jurusan", "Kelas" };
         DefaultTableModel data = new DefaultTableModel(null, header);
 
         studentTable.setModel(data);
@@ -887,22 +3140,245 @@ public class Dashboard extends javax.swing.JFrame {
 
             String[] city = student.getBirthPlace().split(", ");
 
+            String jurusan = "-";
+            String kelas = "-";
+            String bagian = "-";
+
+            if (student.getSection() != null) {
+                Section section = student.getSection();
+                bagian = section.getName();
+
+                if (section.getClassroom() != null) {
+                    Classroom classroom = section.getClassroom();
+                    kelas = classroom.getName();
+
+                    if (classroom.getDepartment() != null) {
+                        jurusan = classroom.getDepartment().getName();
+                    }
+                }
+            }
+
             data.addRow(new Object[] {
+                    student.getId(),
                     student.getName(),
-                    student.getUsername(),
-                    student.getEmail(),
-                    student.getPhoneNumber(),
+                    student.getGender(),
                     city[1],
                     student.getBirthDate(),
-                    " - ",
-                    "  - - - "
+                    jurusan,
+                    kelas + "/" + bagian,
+            });
+        }
+
+    }
+
+    private void loadDataStudent(String dept, String cls, String sec) {
+
+        Object header[] = { "NPM", "Nama", "Jenis Kelamin", "Tempat lahir", "Tanggal lahir", "Jurusan", "Kelas" };
+        DefaultTableModel data = new DefaultTableModel(null, header);
+
+        studentTable.setModel(data);
+
+        List<Student> filtered = masterService.findStudentsByFilter(dept, cls, sec);
+
+        for (Student student : filtered) {
+
+            String[] city = student.getBirthPlace().split(", ");
+
+            String jurusan = "-";
+            String kelas = "-";
+            String bagian = "-";
+
+            if (student.getSection() != null) {
+                Section section = student.getSection();
+                bagian = section.getName();
+
+                if (section.getClassroom() != null) {
+                    Classroom classroom = section.getClassroom();
+                    kelas = classroom.getName();
+
+                    if (classroom.getDepartment() != null) {
+                        jurusan = classroom.getDepartment().getName();
+                    }
+                }
+            }
+
+            data.addRow(new Object[] {
+                    student.getId(),
+                    student.getName(),
+                    student.getGender(),
+                    city[1],
+                    student.getBirthDate(),
+                    jurusan,
+                    kelas + "/" + bagian,
+            });
+        }
+
+    }
+
+    private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_studentTableMouseClicked
+
+        int row = studentTable.getSelectedRow();
+        // Ambil NPM dari kolom pertama, lalu ambil 4 digit terakhir sebagai id
+        id = Integer.parseInt(studentTable.getModel().getValueAt(row, 0).toString());
+
+        Student student = masterService.findStudentById(id);
+
+        studentDetailNameField.setText(student.getName());
+        studentDetailGenderField.setSelectedItem(student.getGender());
+        studentDetailUsernameField.setText(student.getUsername());
+        studentDetailEmailField.setText(student.getEmail());
+        studentDetailPhoneNumberField.setText(student.getPhoneNumber());
+
+        LocalDate date = student.getBirthDate();
+
+        studentDetailDateField.setSelectedIndex(date.getDayOfMonth() - 1);
+        studentDetailMonthField.setSelectedIndex(date.getMonthValue() - 1);
+        studentDetailYearField.setSelectedItem(date.getYear());
+
+        String[] birthPlace = student.getBirthPlace().split(", ");
+
+        String province = birthPlace[2];
+        String city = birthPlace[1];
+        String district = birthPlace[0];
+
+        updateStudentRegionDetailComboBoxes(province, city, district);
+
+        // updateStudentDepartmentDetailComboBox(province, city, district);
+
+        // Ambil Section, Classroom, dan Department dari student
+        Section section = student.getSection();
+        Classroom classroom = section.getClassroom();
+        Department department = classroom.getDepartment();
+
+        // Pastikan combo box sudah terisi
+        studentDetailDepartmentField.setSelectedItem(department.getName());
+        studentDetailClassField.setSelectedItem(classroom.getName());
+        studentDetailSectionField.setSelectedItem(section.getName());
+
+        closeAllInternalFrame();
+
+        studentDetailForm.setVisible(true);
+
+        try {
+            studentDetailForm.setSelected(true);
+        } catch (PropertyVetoException e) {
+
+            e.printStackTrace();
+        }
+
+    }
+
+    /* TEACHER BUSINESS LOGIC IN HERE */
+    /* ========================================= */
+
+    // show panel teacher
+    private void teacherButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherButtonMouseClicked
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        teacherPanel.setVisible(true);
+        loadDataTeacher();
+    }// GEN-LAST:event_teacherButtonMouseClicked
+
+    // show add form teacher
+    private void addTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addTeacherButtonMouseClicked
+        log.info("Button Clicked : show teacher add form");
+        closeAllInternalFrame();
+
+        teacherAddForm.setVisible(true);
+
+        try {
+            teacherAddForm.setSelected(true); // Fokuskan
+        } catch (PropertyVetoException ex) {
+        }
+
+    }// GEN-LAST:event_addTeacherButtonMouseClicked
+
+    // add teacher by staff
+    private void teacherAddButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherAddButtonMouseClicked
+
+        String name = teacherAddNameField.getText();
+        String gender = teacherAddGenderField.getSelectedItem().toString();
+        String username = teacherAddUsernameField.getText();
+        String date = teacherAddDateField.getSelectedItem().toString();
+        Integer month = teacherAddMonthField.getSelectedIndex();
+        String year = teacherAddYearField.getSelectedItem().toString();
+        String email = teacherAddEmailField.getText();
+        String phoneNumber = teacherAddPhoneNumberField.getText();
+        String province = teacherAddProvinceField.getSelectedItem().toString();
+        String city = teacherAddCityField.getSelectedItem().toString();
+        String district = teacherAddDistrictField.getSelectedItem().toString();
+
+        AddTeacherRequest request = new AddTeacherRequest(name, gender, username, date, month, year,
+                email,
+                phoneNumber,
+                province, city, district);
+
+        try {
+            String result = masterService.registerTeacher(request);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+                clearAddTeacherForm();
+
+                teacherAddForm.setVisible(false);
+                loadDataTeacher();
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }// GEN-LAST:event_teacherAddButtonMouseClicked
+
+    // delete teacher by id
+    private void teacherDeleteButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherDeleteButtonMouseClicked
+
+    }// GEN-LAST:event_teacherDeleteButtonMouseClicked
+
+    // edit teacher by staff
+    private void teacherSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherSaveButtonMouseClicked
+
+    }// GEN-LAST:event_teacherSaveButtonMouseClicked
+
+    // live search teacher
+    private void searchTeacherFieldKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_searchTeacherFieldKeyReleased
+        List<Teacher> searchTeachers = masterService.searchTeachers(searchTeacherField.getText());
+
+        loadDataTeacher(searchTeachers);
+    }// GEN-LAST:event_searchTeacherFieldKeyReleased
+
+    private void loadDataTeacher() {
+
+        Object header[] = { "Id", "Nama", "Tempat lahir", "Tanggal lahir", "Mata Pelajaran yang diampu" };
+        DefaultTableModel data = new DefaultTableModel(null, header);
+
+        List<Teacher> all = masterService.getAllTeacher();
+
+        teacherTable.setModel(data);
+
+        for (Teacher teacher : all) {
+
+            String[] city = teacher.getBirthPlace().split(", ");
+            int sizeCourse = teacher.getTeachingAssignments().size();
+
+            data.addRow(new Object[] {
+                    teacher.getId(),
+                    teacher.getName(),
+                    city[1],
+                    teacher.getBirthDate(),
+                    sizeCourse,
             });
         }
     }
 
-    public void loadDataTeacher(List<Teacher> teachers) {
+    private void loadDataTeacher(List<Teacher> teachers) {
 
-        Object header[] = {"Nama", "Username", "E-mail", "No. Telpon", "Tempat lahir", "Tanggal lahir", "Status", "Bidang studi"};
+        Object header[] = { "Id", "Nama", "Tempat lahir", "Tanggal lahir", "Mata Pelajaran yang diampu" };
         DefaultTableModel data = new DefaultTableModel(null, header);
 
         teacherTable.setModel(data);
@@ -912,180 +3388,602 @@ public class Dashboard extends javax.swing.JFrame {
             String[] city = teacher.getBirthPlace().split(", ");
 
             data.addRow(new Object[] {
+                    teacher.getId(),
                     teacher.getName(),
-                    teacher.getUsername(),
-                    teacher.getEmail(),
-                    teacher.getPhoneNumber(),
                     city[1],
                     teacher.getBirthDate(),
                     " - ",
-                    "  - - - "
             });
         }
     }
 
-    public String[] getYears() {
+    private void teacherTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_teacherTableMouseClicked
 
-        int currentYear = Year.now().getValue();
-        int startYear = currentYear - 17; // 50 tahun yang lalu
-        int endYear = currentYear - 6; // 18 tahun yang lalu
+        int row = teacherTable.getSelectedRow();
+        id = Integer.parseInt(teacherTable.getModel().getValueAt(row, 0).toString());
 
-        List<String> years = new ArrayList<>();
-        for (int year = startYear; year <= endYear; year++) {
-            years.add(String.valueOf(year));
+        // log.info("ID : {}", id);
+        Teacher teacher = masterService.findTeacherById(id);
+
+        teacherDetailNameField.setText(teacher.getName());
+        teacherDetailUsernameField.setText(teacher.getUsername());
+        teacherDetailEmailField.setText(teacher.getEmail());
+        teacherDetailPhoneNumberField.setText(teacher.getPhoneNumber());
+
+        LocalDate date = teacher.getBirthDate();
+
+        teacherDetailDateField.setSelectedIndex(date.getDayOfMonth() - 1);
+        teacherDetailMonthField.setSelectedIndex(date.getMonthValue() - 1);
+        teacherDetailYearField.setSelectedItem(date.getYear());
+
+        String[] birthPlace = teacher.getBirthPlace().split(", ");
+
+        String province = birthPlace[2];
+        String city = birthPlace[1];
+        String district = birthPlace[0];
+
+        updateTeacherRegionDetailComboBoxes(province, city, district);
+
+        loadSizeCourseTeacher();
+
+        closeAllInternalFrame();
+
+        teacherDetailForm.setVisible(true);
+
+        try {
+            teacherDetailForm.setSelected(true);
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* CLASSROOM BUSINESS LOGIC IN HERE */
+    /* ========================================= */
+
+    // show add department form
+    private void addDepartmentButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addDepartmentButtonMouseClicked
+
+        closeAllInternalFrame();
+
+        departmentAddForm.setVisible(true);
+
+        try {
+            departmentAddForm.setSelected(true); // Fokuskan
+        } catch (PropertyVetoException ex) {
+
+        }
+    }// GEN-LAST:event_addDepartmentButtonMouseClicked
+
+    // add department
+    private void addMajorButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addMajorButtonMouseClicked
+
+        AddDepartmentRequest department = new AddDepartmentRequest();
+
+        department.setName(departmentAddDepartmentField.getText());
+        department.setCode(departmentAddCodeField.getText());
+
+        try {
+            String result = masterService.addDepartment(department);
+
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Validasi Gagal", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+
+                closeAllInternalFrame();
+                loadClassroomData();
+
+                updateAllDepartmentComboBox();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
-        return years.toArray(String[]::new);
-    }
+        closeAllInternalFrame();
+        // loadClassroomData();
 
-    public String[] getDates() {
-        List<String> dates = new ArrayList<>();
+    }// GEN-LAST:event_addMajorButtonMouseClicked
 
-        for (int i = 1; i <= 31; i++) {
-            dates.add(String.valueOf(i));
+    // show add class form
+    private void addClassroomButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addClassroomButtonMouseClicked
+
+        closeAllInternalFrame();
+
+        classroomAddForm.setVisible(true);
+
+        try {
+            classroomAddForm.setSelected(true); // Fokuskan
+        } catch (PropertyVetoException ex) {
+
         }
 
-        return dates.toArray(new String[0]);
-    }
+    }// GEN-LAST:event_addClassroomButtonMouseClicked
 
-    public String[] getProvinces() {
-        return regionService.getAllProvinces();
-    }
 
-    public String[] getRegencies(JComboBox<String> comboBox) {
-        Object selectedProvince = comboBox.getSelectedItem();
+    public void loadTransactionData() {
 
-        if (selectedProvince == null) {
-            return new String[] {};
+        DefaultTableModel model = (DefaultTableModel) transactionTable.getModel();
+        model.setRowCount(0);
+
+        List<SPPTransaction> allTransaction = masterService.findAllTransaction();
+        
+        for (SPPTransaction transaction : allTransaction) {
+            model.addRow(new Object[]{
+                transaction.getId(),
+                transaction.getStudent().getName(),
+                transaction.getPaymentDate(),
+                transaction.getTotalPaid()
+            });
         }
 
-        String provinceName = selectedProvince.toString();
-
-        return regionService.getRegenciesByName(provinceName);
     }
 
-    public String[] getDistricts(JComboBox<String> comboBox) {
-        Object selectedRegency = comboBox.getSelectedItem();
+    public void loadClassroomData() {
 
-        if (selectedRegency == null) {
-            return new String[] {};
+        Object header[] = { "Kode Jurusan", "Nama Jurusan" };
+        DefaultTableModel table = new DefaultTableModel(null, header);
+
+        List<Department> departments = masterService.findDepartments(); // yang sudah fetch join
+        departmentTable.setModel(table);
+
+        for (Department department : departments) {
+            table.addRow(new Object[] {
+                    department.getId(),
+                    department.getName()
+            });
         }
 
-        String regencyName = selectedRegency.toString();
-        return regionService.getDistrictsByName(regencyName);
+        Object header2[] = { "Kode Kelas", "Jurusan", "Kelas" };
+        DefaultTableModel table2 = new DefaultTableModel(null, header2);
+
+        List<Classroom> classrooms = masterService.findClassrooms();
+        classroomTable.setModel(table2);
+
+        for (Classroom classroom : classrooms) {
+            table2.addRow(new Object[] {
+                    classroom.getId(),
+                    classroom.getDepartment().getName(),
+                    classroom.getName()
+            });
+        }
+
+        Object header3[] = { "Kode Section", "Jurusan/Kelas", "Section", "Jumlah Murid" };
+        DefaultTableModel table3 = new DefaultTableModel(null, header3);
+
+        List<Section> sections = masterService.findSection();
+        sectionTable.setModel(table3);
+
+        for (Section section : sections) {
+            table3.addRow(new Object[] {
+                    section.getId(),
+                    section.getClassroom().getDepartment().getName() + "/" + section.getClassroom().getName(),
+                    section.getName(),
+                    section.getStudents().size()
+            });
+        }
     }
 
-    public void clearAddUserForm() {
-        nameAddField.setText("");
-        usernameAddField.setText("");
-        dateAddField.setSelectedIndex(0);
-        monthAddField.setSelectedIndex(0);
-        yearAddField.setSelectedIndex(0);
-        emailAddField.setText("");
-        phoneNumberAddField.setText("");
-        provinceAddField.setSelectedIndex(0);
-        cityAddField.setSelectedIndex(0);
-        districtAddField.setSelectedIndex(0);
+    private void costButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_costButtonMouseClicked
+
+        closeAllInternalFrame();
+        closeAllPanel();
+
+        loadCostRecapData();
+        costPanel.setVisible(true);
+
+    }// GEN-LAST:event_costButtonMouseClicked
+
+    private void loadAddCourseTeacherData() {
+        Object header[] = { "Jurusan", "Kelas", "Mata Pelajaran" };
+        DefaultTableModel table = new DefaultTableModel(null, header);
+
+        List<Course> allCourse = masterService.findAllCourse();
+
+        jTable2.setModel(table);
+
+        for (Course c : allCourse) {
+            table.addRow(new Object[] {
+                    c.getDepartment().getName(),
+                    c.getClassroom().getName(),
+                    c.getName()
+
+            });
+        }
     }
 
-    public void clearDetailUserForm() {
-        nameDetailField.setText("");
-        usernameDetailField.setText("");
-        dateDetailField.setSelectedIndex(0);
-        monthDetailField.setSelectedIndex(0);
-        yearDetailField.setSelectedIndex(0);
-        emailDetailField.setText("");
-        phoneNumberDetailField.setText("");
-        provinceDetailField.setSelectedIndex(0);
-        cityDetailField.setSelectedIndex(0);
-        districtDetailField.setSelectedIndex(0);
+    private void loadCostRecapData() {
+        DefaultTableModel model = (DefaultTableModel) costTable.getModel();
+        model.setRowCount(0);
+
+        List<StudentWithDueInfo> list = masterService.getStudentsWithBill();
+
+        for (StudentWithDueInfo s : list) {
+            model.addRow(new Object[] {
+                    s.getId(),
+                    s.getName(),
+                    s.getDepartment(),
+                    s.getClassroom(),
+                    s.getUnpaidCount() + " Bulan"
+            });
+        }
     }
 
-    public void updateRegionDetailComboBoxes(String provinceName, String cityName, String districtName) {
+    private void clearAddStudentForm() {
+
+        studentAddNameField.setText("");
+        studentAddUsernameField.setText("");
+        studentAddDateField.setSelectedIndex(0);
+        studentAddMonthField.setSelectedIndex(0);
+        studentAddYearField.setSelectedIndex(0);
+        studentAddEmailField.setText("");
+        studentAddPhoneNumberField.setText("");
+        studentAddProvinceField.setSelectedIndex(0);
+        studentAddCityField.setSelectedIndex(0);
+        studentAddDistrictField.setSelectedIndex(0);
+
+    }
+
+    private void clearAddTeacherForm() {
+
+        teacherAddNameField.setText("");
+        teacherAddUsernameField.setText("");
+        teacherAddDateField.setSelectedIndex(0);
+        teacherAddMonthField.setSelectedIndex(0);
+        teacherAddYearField.setSelectedIndex(0);
+        teacherAddEmailField.setText("");
+        teacherAddPhoneNumberField.setText("");
+        teacherAddProvinceField.setSelectedIndex(0);
+        teacherAddCityField.setSelectedIndex(0);
+        teacherAddDistrictField.setSelectedIndex(0);
+
+    }
+
+    private void updateStudentRegionDetailComboBoxes(String provinceName, String cityName, String districtName) {
         // Set provinsi
-        provinceDetailField.setSelectedItem(provinceName);
+        studentDetailProvinceField.setSelectedItem(provinceName);
 
         // Set kota sesuai provinsi
-        String[] regencies = regionService.getRegenciesByName(provinceName);
-        cityDetailField.setModel(new DefaultComboBoxModel<>(regencies));
-        cityDetailField.setSelectedItem(cityName);
+        String[] regencies = masterService.getRegenciesByProvinceName(provinceName);
+        studentDetailCityField.setModel(new DefaultComboBoxModel<>(regencies));
+        studentDetailCityField.setSelectedItem(cityName);
 
         // Set kecamatan sesuai kota
-        String[] districts = regionService.getDistrictsByName(cityName);
-        districtDetailField.setModel(new DefaultComboBoxModel<>(districts));
-        districtDetailField.setSelectedItem(districtName);
+        String[] districts = masterService.getDistrictsByRegencyName(cityName);
+        studentDetailDistrictField.setModel(new DefaultComboBoxModel<>(districts));
+        studentDetailDistrictField.setSelectedItem(districtName);
+    }
+
+    private void updateTeacherRegionDetailComboBoxes(String provinceName, String cityName, String districtName) {
+        // Set provinsi
+        teacherDetailProvinceField.setSelectedItem(provinceName);
+
+        // Set kota sesuai provinsi
+        String[] regencies = masterService.getRegenciesByProvinceName(provinceName);
+        teacherDetailCityField.setModel(new DefaultComboBoxModel<>(regencies));
+        teacherDetailCityField.setSelectedItem(cityName);
+
+        // Set kecamatan sesuai kota
+        String[] districts = masterService.getDistrictsByRegencyName(cityName);
+        teacherDetailDistrictField.setModel(new DefaultComboBoxModel<>(districts));
+        teacherDetailDistrictField.setSelectedItem(districtName);
+    }
+
+    private void closeAllInternalFrame() {
+        for (JInternalFrame frame : getAllInternalFrames()) {
+            if (frame != null)
+                frame.setVisible(false);
+
+        }
+    }
+
+    private JInternalFrame[] getAllInternalFrames() {
+        return new JInternalFrame[] {
+                classroomAddForm,
+                departmentAddForm,
+                studentAddForm,
+                studentDetailForm,
+                teacherAddForm,
+                teacherDetailForm,
+                courseAddForm,
+                courseDetailForm,
+                departmentDetail,
+                classroomDetail,
+                sectionDetail,
+                teacherAddCourse,
+                costDetail
+        };
+    }
+
+    private JPanel[] getAllPanel() {
+        return new JPanel[] {
+                studentPanel,
+                teacherPanel,
+                classroomPanel,
+                coursePanel,
+                costPanel,
+                transactionPanel, 
+                reportPanel
+        };
+    }
+
+    public void closeAllPanel() {
+        for (JPanel panel : getAllPanel()) {
+            if (panel != null)
+                panel.setVisible(false);
+
+        }
+    }
+
+    public void loadCourseData() {
+        Object header[] = { "Kode Mata Pelajaran", "Mata Pelajaran", "Kelas", "Jurusan" };
+        DefaultTableModel data = new DefaultTableModel(null, header);
+
+        List<Course> courses = masterService.findAllCourse();
+
+        courseTable.setModel(data);
+
+        for (Course course : courses) {
+
+            data.addRow(new Object[] {
+
+                    course.getId(),
+                    course.getName(),
+                    course.getClassroom().getName(),
+                    course.getDepartment().getName(),
+            });
+        }
+
+    }
+
+    public void loadSizeCourseTeacher() {
+
+        Object header[] = { "Jurusan", "Kelas/Section", "Mata Pelajaran" };
+        DefaultTableModel data = new DefaultTableModel(null, header);
+
+        List<TeachingAssignment> list = masterService.getSizeCourseByTeacherId(id);
+
+        jTable1.setModel(data);
+        for (TeachingAssignment t : list) {
+
+            String classroom = t.getSection().getClassroom().getName();
+            String section = t.getSection().getName();
+
+            data.addRow(new Object[] {
+                    t.getSection().getClassroom().getDepartment().getName(),
+                    String.format("%s/%s", classroom, section),
+                    t.getCourse().getName()
+            });
+        }
+
+    }
+
+    public void updateAllDepartmentComboBox() {
+
+        studentPanelDepartmentList.setModel(new DefaultComboBoxModel<>(masterService.getAllDepartment()));
+
+        studentAddDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+        studentDetailDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+        classroomAddDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+
+        courseAddDepartmentField.setModel(new DefaultComboBoxModel<>(masterService.getDepartments()));
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame addForm;
+    private javax.swing.JButton addClassroomButton;
+    private javax.swing.JButton addCourseButton;
+    private javax.swing.JButton addDepartmentButton;
     private javax.swing.JButton addStudentButton;
-    private javax.swing.JButton addStudentButton2;
     private javax.swing.JButton addStudentButton3;
     private javax.swing.JButton addTeacherButton;
-    private javax.swing.JButton addUserButton;
     private javax.swing.JButton back;
     private javax.swing.JLabel bg;
-    private javax.swing.JLabel bgAddForm;
+    private javax.swing.JLabel bgAddClass;
+    private javax.swing.JLabel bgAddCourse;
+    private javax.swing.JLabel bgAddDepartment;
     private javax.swing.JLabel bgClassPanel;
+    private javax.swing.JLabel bgClassroomDetail;
     private javax.swing.JLabel bgCostPanel;
+    private javax.swing.JLabel bgCoursePanel;
+    private javax.swing.JLabel bgCoursePanel1;
+    private javax.swing.JLabel bgCoursePanel2;
+    private javax.swing.JLabel bgDetailCourse;
+    private javax.swing.JLabel bgDetailDepartment;
     private javax.swing.JLabel bgEditForm;
+    private javax.swing.JLabel bgEditForm1;
+    private javax.swing.JLabel bgSectionDetail;
+    private javax.swing.JLabel bgSectionDetail1;
     private javax.swing.JLabel bgStudentPanel;
+    private javax.swing.JLabel bgTeacherAddCourse;
     private javax.swing.JLabel bgTeacherPanel;
-    private javax.swing.JComboBox<String> cityAddField;
-    private javax.swing.JComboBox<String> cityDetailField;
     private javax.swing.JButton classButton;
-    private javax.swing.JPanel classPanel;
-    private javax.swing.JTable classTable;
+    private javax.swing.JComboBox<String> classroomAddClassroomField;
+    private javax.swing.JComboBox<String> classroomAddDepartmentField;
+    private javax.swing.JButton classroomAddExitButton;
+    private javax.swing.JInternalFrame classroomAddForm;
+    private javax.swing.JButton classroomAddRegisterButton;
+    private javax.swing.JInternalFrame classroomDetail;
+    private javax.swing.JComboBox<String> classroomDetailClassroomName;
+    private javax.swing.JButton classroomDetailDeleteButton;
+    private javax.swing.JLabel classroomDetailDepartmentName;
+    private javax.swing.JButton classroomDetailExitButton;
+    private javax.swing.JButton classroomDetailSaveButton;
+    private javax.swing.JLabel classroomDetailTotalSection;
+    private javax.swing.JPanel classroomPanel;
+    private javax.swing.JTable classroomTable;
     private javax.swing.JButton costButton;
+    private javax.swing.JInternalFrame costDetail;
+    private javax.swing.JButton costDetailAddMonth;
+    private javax.swing.JLabel costDetailClassroomName;
+    private javax.swing.JLabel costDetailDepartmentName;
+    private javax.swing.JButton costDetailExitButton;
+    private javax.swing.JComboBox<String> costDetailMonthField;
+    private javax.swing.JLabel costDetailSectionName;
+    private javax.swing.JLabel costDetailStudentName;
+    private javax.swing.JLabel costDetailTotalCost;
     private javax.swing.JPanel costPanel;
     private javax.swing.JTable costTable;
-    private javax.swing.JComboBox<String> dateAddField;
-    private javax.swing.JComboBox<String> dateDetailField;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JComboBox<String> districtAddField;
-    private javax.swing.JComboBox<String> districtDetailField;
-    private javax.swing.JTextField emailAddField;
-    private javax.swing.JTextField emailDetailField;
-    private javax.swing.JButton exitAddUserButton;
-    private javax.swing.JButton exitUserDetailButton;
+    private javax.swing.JTable costTable2;
+    private javax.swing.JComboBox<String> courseAddClassroomField;
+    private javax.swing.JComboBox<String> courseAddDepartmentField;
+    private javax.swing.JButton courseAddExitButton;
+    private javax.swing.JInternalFrame courseAddForm;
+    private javax.swing.JTextField courseAddNameField;
+    private javax.swing.JButton courseAddRegisterButton;
+    private javax.swing.JButton courseButton;
+    private javax.swing.JLabel courseDetailClassroomField;
+    private javax.swing.JButton courseDetailDeleteButton;
+    private javax.swing.JLabel courseDetailDepatmentField;
+    private javax.swing.JButton courseDetailEditButton;
+    private javax.swing.JButton courseDetailExitButton;
+    private javax.swing.JInternalFrame courseDetailForm;
+    private javax.swing.JTextField courseDetailNameField;
+    private javax.swing.JPanel coursePanel;
+    private javax.swing.JComboBox<String> coursePanelClassroomList;
+    private javax.swing.JComboBox<String> coursePanelDepartmentList;
+    private javax.swing.JTable courseTable;
+    private javax.swing.JTextField departmentAddCodeField;
+    private javax.swing.JTextField departmentAddDepartmentField;
+    private javax.swing.JButton departmentAddExitButton;
+    private javax.swing.JInternalFrame departmentAddForm;
+    private javax.swing.JButton departmentAddRegisterButton;
+    private javax.swing.JInternalFrame departmentDetail;
+    private javax.swing.JButton departmentDetailDeleteButton;
+    private javax.swing.JTextField departmentDetailDepartmentName;
+    private javax.swing.JButton departmentDetailExitButton;
+    private javax.swing.JButton departmentDetailSaveButton;
+    private javax.swing.JLabel departmentDetailTotalClassroom;
+    private javax.swing.JTable departmentTable;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JDesktopPane layer;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JComboBox<String> monthAddField;
-    private javax.swing.JComboBox<String> monthDetailField;
-    private javax.swing.JTextField nameAddField;
-    private javax.swing.JTextField nameDetailField;
-    private javax.swing.JTextField phoneNumberAddField;
-    private javax.swing.JTextField phoneNumberDetailField;
-    private javax.swing.JComboBox<String> provinceAddField;
-    private javax.swing.JComboBox<String> provinceDetailField;
-    private javax.swing.JButton saveButton;
+    private javax.swing.JButton paySppButton;
+    private javax.swing.JButton printCourse;
+    private javax.swing.JButton printCourse1;
+    private javax.swing.JButton printTableStudentButton;
+    private javax.swing.JButton printTeacher;
+    private javax.swing.JButton reportButton;
+    private javax.swing.JPanel reportPanel;
+    private javax.swing.JButton reportPanelClassroomPanel;
+    private javax.swing.JButton reportPanelCourseData;
+    private javax.swing.JButton reportPanelStudentData;
+    private javax.swing.JButton reportPanelTeacherData;
+    private javax.swing.JButton reportPanelTransaction;
+    private javax.swing.JTextField searchCourseField;
     private javax.swing.JTextField searchStudentForm;
     private javax.swing.JTextField searchStudentForm2;
     private javax.swing.JTextField searchStudentForm3;
     private javax.swing.JTextField searchTeacherField;
+    private javax.swing.JInternalFrame sectionDetail;
+    private javax.swing.JLabel sectionDetailClassroomName;
+    private javax.swing.JButton sectionDetailDeleteButton;
+    private javax.swing.JLabel sectionDetailDepartmentName;
+    private javax.swing.JButton sectionDetailExitButton;
+    private javax.swing.JButton sectionDetailSaveButton;
+    private javax.swing.JTextField sectionDetailSectionName;
+    private javax.swing.JLabel sectionDetailTotalStudent;
+    private javax.swing.JTable sectionTable;
+    private javax.swing.JComboBox<String> studentAddCityField;
+    private javax.swing.JComboBox<String> studentAddDateField;
+    private javax.swing.JComboBox<String> studentAddDepartmentField;
+    private javax.swing.JComboBox<String> studentAddDistrictField;
+    private javax.swing.JTextField studentAddEmailField;
+    private javax.swing.JButton studentAddExitButton;
+    private javax.swing.JInternalFrame studentAddForm;
+    private javax.swing.JComboBox<String> studentAddGenderField;
+    private javax.swing.JComboBox<String> studentAddMonthField;
+    private javax.swing.JTextField studentAddNameField;
+    private javax.swing.JTextField studentAddPhoneNumberField;
+    private javax.swing.JComboBox<String> studentAddProvinceField;
+    private javax.swing.JButton studentAddRegisterButton;
+    private javax.swing.JTextField studentAddUsernameField;
+    private javax.swing.JComboBox<String> studentAddYearField;
     private javax.swing.JButton studentButton;
+    private javax.swing.JComboBox<String> studentDetailCityField;
+    private javax.swing.JComboBox<String> studentDetailClassField;
+    private javax.swing.JComboBox<String> studentDetailDateField;
+    private javax.swing.JButton studentDetailDeleteButton;
+    private javax.swing.JComboBox<String> studentDetailDepartmentField;
+    private javax.swing.JComboBox<String> studentDetailDistrictField;
+    private javax.swing.JTextField studentDetailEmailField;
+    private javax.swing.JButton studentDetailExitButton;
+    private javax.swing.JInternalFrame studentDetailForm;
+    private javax.swing.JComboBox<String> studentDetailGenderField;
+    private javax.swing.JComboBox<String> studentDetailMonthField;
+    private javax.swing.JTextField studentDetailNameField;
+    private javax.swing.JTextField studentDetailPhoneNumberField;
+    private javax.swing.JComboBox<String> studentDetailProvinceField;
+    private javax.swing.JButton studentDetailSaveButton;
+    private javax.swing.JComboBox<String> studentDetailSectionField;
+    private javax.swing.JTextField studentDetailUsernameField;
+    private javax.swing.JComboBox<String> studentDetailYearField;
     private javax.swing.JPanel studentPanel;
+    private javax.swing.JComboBox<String> studentPanelClassroomList;
+    private javax.swing.JComboBox<String> studentPanelDepartmentList;
+    private javax.swing.JComboBox<String> studentPanelSectionList;
     private javax.swing.JTable studentTable;
+    private javax.swing.JLabel studentbgAddForm;
+    private javax.swing.JComboBox<String> teacherAddCityField;
+    private javax.swing.JInternalFrame teacherAddCourse;
+    private javax.swing.JComboBox<String> teacherAddCourseClassroomList;
+    private javax.swing.JComboBox<String> teacherAddCourseDepartmentList;
+    private javax.swing.JButton teacherAddCourseExitButton;
+    private javax.swing.JComboBox<String> teacherAddCourseSectionList;
+    private javax.swing.JComboBox<String> teacherAddDateField;
+    private javax.swing.JComboBox<String> teacherAddDistrictField;
+    private javax.swing.JTextField teacherAddEmailField;
+    private javax.swing.JButton teacherAddExitButton;
+    private javax.swing.JInternalFrame teacherAddForm;
+    private javax.swing.JComboBox<String> teacherAddGenderField;
+    private javax.swing.JComboBox<String> teacherAddMonthField;
+    private javax.swing.JTextField teacherAddNameField;
+    private javax.swing.JTextField teacherAddPhoneNumberField;
+    private javax.swing.JComboBox<String> teacherAddProvinceField;
+    private javax.swing.JButton teacherAddRegisterButton;
+    private javax.swing.JTextField teacherAddUsernameField;
+    private javax.swing.JComboBox<String> teacherAddYearField;
     private javax.swing.JButton teacherButton;
+    private javax.swing.JButton teacherDetailAddCourse;
+    private javax.swing.JComboBox<String> teacherDetailCityField;
+    private javax.swing.JComboBox<String> teacherDetailDateField;
+    private javax.swing.JButton teacherDetailDeleteButton;
+    private javax.swing.JComboBox<String> teacherDetailDistrictField;
+    private javax.swing.JTextField teacherDetailEmailField;
+    private javax.swing.JButton teacherDetailExitButton;
+    private javax.swing.JInternalFrame teacherDetailForm;
+    private javax.swing.JComboBox<String> teacherDetailGenderField;
+    private javax.swing.JComboBox<String> teacherDetailMonthField;
+    private javax.swing.JTextField teacherDetailNameField;
+    private javax.swing.JTextField teacherDetailPhoneNumberField;
+    private javax.swing.JComboBox<String> teacherDetailProvinceField;
+    private javax.swing.JButton teacherDetailSaveButton;
+    private javax.swing.JTextField teacherDetailUsernameField;
+    private javax.swing.JComboBox<String> teacherDetailYearField;
     private javax.swing.JPanel teacherPanel;
     private javax.swing.JTable teacherTable;
-    private javax.swing.JInternalFrame userDetailForm;
-    private javax.swing.JTextField usernameAddField;
-    private javax.swing.JTextField usernameDetailField;
-    private javax.swing.JComboBox<String> yearAddField;
-    private javax.swing.JComboBox<String> yearDetailField;
+    private javax.swing.JLabel teacherbgAddForm;
+    private javax.swing.JButton transactionButton;
+    private javax.swing.JPanel transactionPanel;
+    private javax.swing.JTextField transactionPanelSearchField;
+    private javax.swing.JTable transactionTable;
     // End of variables declaration//GEN-END:variables
 
-    private String id;
-
-    private String role = "student";
-
-    // copy ke atas atau bawah = shift + alt + arrow up/down
-    // seleksi kata/multiple curson = ctrl + d
-    // pindah line ke atas/bawah = alt + arrow up/down
+    private Integer id;
 
 }

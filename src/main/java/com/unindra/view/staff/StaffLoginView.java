@@ -4,12 +4,11 @@
  */
 package com.unindra.view.staff;
 
-import com.unindra.view.staff.RegisterStaffView;
 import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Component;
 
-import com.unindra.model.LoginRequest;
+import com.unindra.model.request.LoginRequest;
 import com.unindra.service.AuthService;
 
 /**
@@ -19,16 +18,16 @@ import com.unindra.service.AuthService;
 @Component
 public class StaffLoginView extends javax.swing.JFrame {
 
-    private final RegisterStaffView registerStaffView;
+    private final StaffRegisterView registerStaffView;
 
     private final AuthService authService;
     
 //    private final StaffDashboardView staffDashboardView;
-    private final Dashboard dashboard;
+    private final StaffDashboardView dashboard;
     /**
      * Creates new form LoginStudentView
      */
-    public StaffLoginView(RegisterStaffView registerStaffView, AuthService authService, Dashboard dashboard) {
+    public StaffLoginView(StaffRegisterView registerStaffView, AuthService authService, StaffDashboardView dashboard) {
         this.registerStaffView = registerStaffView;
         this.authService = authService;
         this.dashboard = dashboard;
@@ -60,7 +59,7 @@ public class StaffLoginView extends javax.swing.JFrame {
         passwordForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(passwordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 250, 30));
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Login View Admin.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/image/Login View Admin.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,7 +67,7 @@ public class StaffLoginView extends javax.swing.JFrame {
                 backButtonMouseClicked(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1192, 10, 70, 30));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1198, 15, 70, 25));
 
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -88,20 +87,21 @@ public class StaffLoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
-        // TODO add your handling code here:
+        
         this.setVisible(false);
+
     }//GEN-LAST:event_backButtonMouseClicked
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
-        // TODO add your handling code here:
+        
         registerStaffView.setVisible(true);
+
     }//GEN-LAST:event_registerButtonMouseClicked
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-        // TODO add your handling code here:
 
         String username = usernameForm.getText();
-        String password = passwordForm.getText();
+        String password = new String(passwordForm.getPassword());
 
         LoginRequest request = new LoginRequest(username, password);
 
@@ -113,6 +113,7 @@ public class StaffLoginView extends javax.swing.JFrame {
             clearField();
             JOptionPane.showMessageDialog(this, "Berhasil login");
             dashboard.setVisible(true);
+            dashboard.loadDataStudent();
         }
     }//GEN-LAST:event_loginButtonMouseClicked
 

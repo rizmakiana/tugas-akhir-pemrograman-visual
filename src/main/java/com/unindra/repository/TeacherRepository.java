@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.unindra.entity.Teacher;
 
 @Repository
-public interface TeacherRepository extends JpaRepository<Teacher, String>{
+public interface TeacherRepository extends JpaRepository<Teacher, Integer>{
  
     boolean existsByUsername(String username);
 
@@ -19,11 +19,11 @@ public interface TeacherRepository extends JpaRepository<Teacher, String>{
 
 
     @Query("""
-                SELECT s FROM Teacher s WHERE
-                LOWER(s.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR
-                LOWER(s.username) LIKE LOWER(CONCAT('%', :keyword, '%')) OR
-                LOWER(s.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR
-                LOWER(s.phoneNumber) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                SELECT t FROM Teacher t WHERE
+                LOWER(t.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR
+                LOWER(t.username) LIKE LOWER(CONCAT('%', :keyword, '%')) OR
+                LOWER(t.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR
+                LOWER(t.phoneNumber) LIKE LOWER(CONCAT('%', :keyword, '%'))
             """)
     List<Teacher> searchAllFields(@Param("keyword") String keyword);
 }
